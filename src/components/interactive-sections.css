@@ -89,8 +89,8 @@
   .menu-toggle span { width: 23px; height: 1.5px; background: var(--navy); transition: transform var(--transition); }
   .menu-toggle--open span:first-child { transform: translateY(3.75px) rotate(45deg); }
   .menu-toggle--open span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
-  .mobile-nav { position: absolute; top: 72px; right: 0; left: 0; display: grid; max-height: 0; padding: 0 var(--gutter); overflow: hidden; visibility: hidden; pointer-events: none; background: var(--white); opacity: 0; transition: max-height 350ms ease, opacity var(--transition), padding var(--transition), visibility 0s 350ms; }
-  .mobile-nav--open { max-height: calc(100dvh - 72px); padding-block: 24px 32px; overflow-y: auto; visibility: visible; pointer-events: auto; border-bottom: 1px solid var(--line); opacity: 1; overscroll-behavior: contain; transition-delay: 0s; }
+  .mobile-nav { position: absolute; top: 72px; right: 0; left: 0; display: grid; max-height: calc(100dvh - 72px); padding: 24px var(--gutter) 32px; overflow-y: auto; visibility: hidden; pointer-events: none; transform: translateY(-10px); border-bottom: 1px solid var(--line); background: var(--white); opacity: 0; overscroll-behavior: contain; transition: opacity var(--transition), transform var(--transition), visibility 0s var(--transition); }
+  .mobile-nav--open { visibility: visible; pointer-events: auto; transform: translateY(0); opacity: 1; transition-delay: 0s; }
   .mobile-nav > a:not(.button-link) { padding: 15px 4px; border-bottom: 1px solid var(--line); color: var(--navy); font-size: 1.25rem; font-weight: 600; text-decoration: none; }
   .mobile-nav .button-link { margin-top: 24px; }
   .hero { min-height: auto; padding-top: 106px; }
