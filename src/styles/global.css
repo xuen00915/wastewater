@@ -22,5 +22,8 @@ section[id],
 #contact-availability { scroll-margin-top: 82px; }
 
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
 }
