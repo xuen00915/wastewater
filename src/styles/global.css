@@ -6,6 +6,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.water-ripple-trail {
+  position: fixed;
+  z-index: 45;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  contain: strict;
+}
+
 @view-transition { navigation: auto; }
 ::view-transition-old(root) { animation: page-out 160ms ease both; }
 ::view-transition-new(root) { animation: page-in 360ms cubic-bezier(.2,.7,.2,1) both; }

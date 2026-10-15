@@ -34,7 +34,12 @@ describe('six-page site composition', () => {
 
   it.each(pages.slice(1))('does not render Home particles on %s', (pathname) => {
     const { container } = renderPath(pathname)
-    expect(container.querySelector('canvas')).not.toBeInTheDocument()
+    expect(container.querySelector('canvas.hero__particles')).not.toBeInTheDocument()
+  })
+
+  it.each(pages)('renders the global water ripple surface on %s', (pathname) => {
+    const { container } = renderPath(pathname)
+    expect(container.querySelector('canvas.water-ripple-trail')).toBeInTheDocument()
   })
 
   it.each(pages)('does not render eyebrow labels on %s', (pathname) => {
