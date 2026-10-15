@@ -16,10 +16,10 @@
 .mobile-nav { overflow-y: auto; }
 
 .hero { position: relative; min-height: min(980px, 100svh); padding: 116px var(--gutter) 72px; overflow: hidden; background: var(--blue-light); }
-.floating-3d-particles { pointer-events: none; }
-.hero__particles { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; opacity: .92; }
+.water-building-particles { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; contain: strict; }
+.water-building-particles__canvas { display: block; width: 100%; height: 100%; }
 .hero__inner { position: relative; z-index: 2; display: grid; width: min(100%, var(--container)); min-height: calc(100svh - 188px); margin: 0 auto; grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr); align-items: center; gap: clamp(36px, 5vw, 78px); }
-.hero__copy { max-width: 630px; padding-block: 40px; }
+.hero__copy { position: relative; z-index: 2; max-width: 630px; padding-block: 40px; }
 .hero__eyebrow { margin: 0 0 24px; color: var(--navy); font-size: .72rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
 .hero__eyebrow span, .hero__topics span { color: var(--blue); }
 .hero h1 { margin: 0; color: var(--navy-deep); font-size: clamp(3.1rem, 5vw, 4.8rem); font-weight: 700; line-height: .99; letter-spacing: -.055em; }
@@ -29,22 +29,15 @@
 .hero__description { max-width: 590px; margin: 30px 0 0; color: var(--muted); font-size: clamp(1rem, 1.25vw, 1.1rem); line-height: 1.75; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .hero__topics { margin: 34px 0 0; color: var(--muted); font-size: .76rem; line-height: 1.8; }
-.hero__visual { position: relative; align-self: stretch; min-height: 610px; }
-.hero__visual > .media { height: 100%; border-radius: var(--radius-media) 0 var(--radius-media) var(--radius-media); }
-.hero__visual > .media::after { position: absolute; inset: 0; border: 1px solid rgb(255 255 255 / 30%); border-radius: inherit; pointer-events: none; content: ''; }
-.circular-card { position: absolute; bottom: 42px; left: -72px; width: min(520px, 76%); padding: 24px 28px; border: 1px solid rgb(8 47 73 / 8%); border-radius: 18px; background: rgb(255 255 255 / 96%); box-shadow: var(--shadow-soft); }
+.hero__visual { position: relative; z-index: 1; align-self: stretch; min-height: 610px; }
+.hero__visual::before { position: absolute; right: 2%; bottom: 17%; width: 78%; height: 1px; content: ''; background: rgb(63 143 107 / 24%); }
+.circular-card { position: absolute; z-index: 3; bottom: 42px; left: -72px; width: min(520px, 76%); padding: 24px 28px; border: 1px solid rgb(8 47 73 / 8%); border-radius: 18px; background: rgb(255 255 255 / 96%); box-shadow: var(--shadow-soft); }
 .circular-card > p { margin: 0 0 16px; color: var(--navy); font-size: .68rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
 .circular-card__flow { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
 .circular-card__item { position: relative; display: grid; min-width: 58px; justify-items: center; gap: 7px; color: var(--navy); text-align: center; }
 .circular-card__item > span { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 50%; color: var(--blue-text); background: var(--blue-light); }
 .circular-card__item small { max-width: 80px; font-size: .64rem; font-weight: 600; line-height: 1.25; }
 .circular-card__arrow { position: absolute; top: 11px; right: -16px; color: var(--muted); }
-.water-contours { position: absolute; z-index: 1; top: 80px; left: -300px; width: 850px; height: 850px; opacity: .4; }
-.water-contours i { position: absolute; inset: calc(var(--i, 0) * 50px); border: 1px solid rgb(14 165 233 / 25%); border-radius: 42% 58% 35% 65%; }
-.water-contours i:nth-child(1) { --i: 0; transform: rotate(10deg); }
-.water-contours i:nth-child(2) { --i: 1; transform: rotate(20deg); }
-.water-contours i:nth-child(3) { --i: 2; transform: rotate(30deg); }
-
 .js .hero__eyebrow,.js .hero h1,.js .hero__description,.js .hero__actions,.js .hero__topics,.js .hero__visual{animation:hero-enter 780ms cubic-bezier(.2,.7,.2,1) both}.js .hero h1{animation-delay:70ms}.js .hero__description{animation-delay:140ms}.js .hero__actions{animation-delay:210ms}.js .hero__topics{animation-delay:270ms}.js .hero__visual{animation-delay:110ms}
 @keyframes hero-enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
