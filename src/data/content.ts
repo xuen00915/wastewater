@@ -1,6 +1,7 @@
 import type { IconName } from '../components/ui/Icon'
+import { pageHref, type PageId } from '../site'
 
-export type NavItem = { label: string; href: string }
+export type NavItem = { label: string; page: PageId; href: string }
 export type ProcessStage = { number: string; title: string; description: string; icon: IconName }
 export type ResearchArea = { title: string; description: string; link: string; icon: IconName; image: string; alt: string }
 export type Benefit = { number: string; title: string; description: string }
@@ -10,12 +11,12 @@ export type CollaborationType = { title: string; description: string; icon: Icon
 const imagePath = (filename: string) => `${import.meta.env.BASE_URL}images/${filename}`
 
 export const navItems: readonly NavItem[] = [
-  { label: 'Home', href: '#home' },
-  { label: 'Services', href: '#process' },
-  { label: 'Research', href: '#research' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Collaborate', href: '#collaborate' },
-  { label: 'Career', href: '#career-opportunities' },
+  { label: 'Home', page: 'home', href: pageHref('home') },
+  { label: 'Services', page: 'services', href: pageHref('services') },
+  { label: 'Research', page: 'research', href: pageHref('research') },
+  { label: 'Projects', page: 'projects', href: pageHref('projects') },
+  { label: 'Collaborate', page: 'collaborate', href: pageHref('collaborate') },
+  { label: 'Career', page: 'career', href: pageHref('career') },
 ]
 
 export const processStages: readonly ProcessStage[] = [
@@ -71,6 +72,6 @@ export const collaborationTypes: readonly CollaborationType[] = [
 
 export const footerGroups = [
   { title: 'Explore', links: navItems.slice(0, 4) },
-  { title: 'Connect', links: [{ label: 'Collaborate', href: '#collaborate' }, { label: 'Career', href: '#career-opportunities' }, { label: 'Contact', href: '#contact-availability' }] },
-  { title: 'Research Areas', links: researchAreas.map((area) => ({ label: area.title, href: '#research' })) },
+  { title: 'Connect', links: navItems.filter(({ page }) => page === 'collaborate' || page === 'career') },
+  { title: 'Research Areas', links: researchAreas.map((area) => ({ label: area.title, page: 'research' as const, href: pageHref('research') })) },
 ] as const

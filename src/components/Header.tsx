@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { navItems } from '../data/content'
+import { resolvePageId } from '../site'
 import { ButtonLink } from './ui/ButtonLink'
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 24)
-  const [active, setActive] = useState('home')
+  const active = resolvePageId(typeof window === 'undefined' ? '/' : window.location.pathname)
   const menuToggleRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
@@ -27,17 +28,6 @@ export function Header() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [menuOpen])
 
-  useEffect(() => {
-    if (!('IntersectionObserver' in window)) return
-    const sections = navItems.map(({ href }) => document.querySelector(href)).filter(Boolean) as Element[]
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-      if (visible) setActive(visible.target.id)
-    }, { rootMargin: '-35% 0px -55%', threshold: [0, 0.2, 0.6] })
-    sections.forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
-  }, [])
-
   const closeMenu = () => setMenuOpen(false)
 
   return (
@@ -48,7 +38,7 @@ export function Header() {
           <span>Wastewater <strong>Treatment</strong></span>
         </a>
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) => <a key={item.href} className={active === item.href.slice(1) ? 'active' : ''} href={item.href}>{item.label}</a>)}
+          {navItems.map((item) => <a key={item.href} className={active === item.page ? 'active' : ''} href={item.href}>{item.label}</a>)}
         </nav>
         <ButtonLink className="header-cta" href="#collaborate">Collaborate With Us</ButtonLink>
         <button ref={menuToggleRef} className={`menu-toggle${menuOpen ? ' menu-toggle--open' : ''}`} type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-controls="mobile-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>
