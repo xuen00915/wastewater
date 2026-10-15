@@ -10,6 +10,7 @@ export type CollaborationType = { title: string; description: string; icon: Icon
 export type ServiceCapability = { number: string; title: string; description: string; icon: IconName }
 export type ResearchTheme = { number: string; title: string; description: string; icon: IconName }
 export type CareerArea = { title: string; description: string; icon: IconName }
+export type AboutPrinciple = { number: string; title: string; description: string; icon: IconName }
 export type TreatmentStage = { id: string; number: string; title: string; summary: string; detail: string; icon: IconName; hotspot: { x: number; y: number } }
 
 const imagePath = (filename: string) => `${import.meta.env.BASE_URL}images/${filename}`
@@ -100,6 +101,13 @@ export const careerAreas: readonly CareerArea[] = [
   { title: 'Green Infrastructure', description: 'Connecting planted systems, water research and sustainable building applications.', icon: 'leaf' },
 ]
 
+export const aboutPrinciples: readonly AboutPrinciple[] = [
+  { number: '01', title: 'Research Led', description: 'Start with clear questions, relevant evidence and methods suited to the treatment context.', icon: 'flask' },
+  { number: '02', title: 'System Connected', description: 'Consider liquid treatment, solids, resource recovery and living systems as related parts of one pathway.', icon: 'recovery' },
+  { number: '03', title: 'Pilot Informed', description: 'Use pilot-scale testing and observation to explore how research concepts behave in practical settings.', icon: 'treatment' },
+  { number: '04', title: 'Open to Collaboration', description: 'Work with research, industry and pilot-site partners around shared environmental questions.', icon: 'industry' },
+]
+
 export const treatmentStages: readonly TreatmentStage[] = [
   { id: 'influent', number: '01', title: 'Influent', summary: 'Understand the incoming wastewater', detail: 'The pathway begins by characterising incoming wastewater and defining the treatment questions for the research or pilot context.', icon: 'water', hotspot: { x: 9, y: 34 } },
   { id: 'screening', number: '02', title: 'Screening & settling', summary: 'Remove larger material and balance flow', detail: 'Preliminary stages can separate larger solids and create a more consistent stream for the treatment steps that follow.', icon: 'solids', hotspot: { x: 25, y: 39 } },
@@ -110,7 +118,7 @@ export const treatmentStages: readonly TreatmentStage[] = [
 ]
 
 export const footerGroups = [
-  { title: 'Explore', links: navItems.slice(0, 4) },
+  { title: 'Explore', links: [...navItems.slice(0, 4), { label: 'About Us', page: 'about' as const }] },
   { title: 'Connect', links: navItems.filter(({ page }) => page === 'collaborate' || page === 'career') },
   { title: 'Research Areas', links: researchAreas.map((area) => ({ label: area.title, page: 'research' as const })) },
 ] as const

@@ -17,6 +17,7 @@ export default defineConfig({
         projects: resolve(projectRoot, 'projects/index.html'),
         collaborate: resolve(projectRoot, 'collaborate/index.html'),
         career: resolve(projectRoot, 'career/index.html'),
+        about: resolve(projectRoot, 'about/index.html'),
       },
     },
   },

@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import { SiteShell } from './components/SiteShell'
 import { CareerPage } from './pages/CareerPage'
+import { AboutPage } from './pages/AboutPage'
 import { CollaboratePage } from './pages/CollaboratePage'
 import { HomePage } from './pages/HomePage'
 import { ProjectsPage } from './pages/ProjectsPage'
@@ -18,6 +19,7 @@ const pageComponents: Record<PageId, ComponentType> = {
   projects: ProjectsPage,
   collaborate: CollaboratePage,
   career: CareerPage,
+  about: AboutPage,
 }
 
 export function App() {

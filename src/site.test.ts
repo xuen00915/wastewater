@@ -1,15 +1,17 @@
 import { pageHref, resolvePageId, sitePages } from './site'
 
 describe('site page routing', () => {
-  it('resolves_all_six_local_and_production_paths', () => {
+  it('resolves_all_seven_local_and_production_paths', () => {
     expect(resolvePageId('/')).toBe('home')
     expect(resolvePageId('/services/')).toBe('services')
     expect(resolvePageId('/research')).toBe('research')
     expect(resolvePageId('/projects/')).toBe('projects')
     expect(resolvePageId('/collaborate/')).toBe('collaborate')
     expect(resolvePageId('/career/')).toBe('career')
+    expect(resolvePageId('/about/')).toBe('about')
     expect(resolvePageId('/wastewater/', '/wastewater/')).toBe('home')
     expect(resolvePageId('/wastewater/services/', '/wastewater/')).toBe('services')
+    expect(resolvePageId('/wastewater/about/', '/wastewater/')).toBe('about')
   })
 
   it('falls_back_to_home_for_unknown_paths', () => {
@@ -24,6 +26,7 @@ describe('site page routing', () => {
     expect(pageHref('services', '/wastewater/')).toBe('/wastewater/services/')
     expect(pageHref('research', '/wastewater')).toBe('/wastewater/research/')
     expect(pageHref('projects', '/wastewater/wastewater/')).toBe('/wastewater/projects/')
-    expect(sitePages).toHaveLength(6)
+    expect(pageHref('about', '/wastewater/')).toBe('/wastewater/about/')
+    expect(sitePages).toHaveLength(7)
   })
 })

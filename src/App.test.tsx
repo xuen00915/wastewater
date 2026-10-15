@@ -8,6 +8,7 @@ const pages = [
   ['/projects/', 'Research Beyond the Laboratory'],
   ['/collaborate/', 'Progress Through Shared Research'],
   ['/career/', 'Build the Future of Environmental Research'],
+  ['/about/', 'Research for Circular Water Systems'],
 ] as const
 
 function renderPath(pathname: string) {
@@ -15,7 +16,7 @@ function renderPath(pathname: string) {
   return render(<App />)
 }
 
-describe('six-page site composition', () => {
+describe('seven-page site composition', () => {
   it.each(pages)('maps %s to one unique page heading', (pathname, heading) => {
     renderPath(pathname)
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
@@ -60,5 +61,10 @@ describe('six-page site composition', () => {
     const { container } = renderPath(pathname)
     expect(container).not.toHaveTextContent(/\+65|Singapore|client logo|% saved|verified result|current vacancy/i)
     expect(container.textContent).not.toMatch(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/i)
+  })
+
+  it('links to About Us from the footer', () => {
+    renderPath('/')
+    expect(screen.getByRole('link', { name: 'About Us' })).toHaveAttribute('href', '/about/')
   })
 })

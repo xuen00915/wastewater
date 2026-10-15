@@ -1,4 +1,4 @@
-export type PageId = 'home' | 'services' | 'research' | 'projects' | 'collaborate' | 'career'
+export type PageId = 'home' | 'services' | 'research' | 'projects' | 'collaborate' | 'career' | 'about'
 
 export type SitePage = {
   id: PageId
@@ -50,6 +50,13 @@ export const sitePages: readonly SitePage[] = [
     segment: 'career',
     title: 'Careers in Water & Environmental Research',
     description: 'Learn about future opportunities in wastewater research, pilot systems, monitoring and green infrastructure.',
+  },
+  {
+    id: 'about',
+    label: 'About Us',
+    segment: 'about',
+    title: 'About Us | Circular Water & Environmental Research',
+    description: 'Learn about our connected approach to wastewater treatment, resource recovery, pilot testing and green infrastructure research.',
   },
 ]
 
