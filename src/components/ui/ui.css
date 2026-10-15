@@ -13,7 +13,7 @@
 }
 
 .button-link--primary { color: var(--white); background: var(--navy); }
-.button-link--primary:hover { background: var(--blue); }
+.button-link--primary:hover { background: var(--blue-text); }
 .button-link--secondary { color: var(--navy); border-color: var(--navy); background: transparent; }
 .button-link--secondary:hover { color: var(--white); background: var(--navy); }
 .button-link--light { color: var(--navy); background: var(--white); }
@@ -23,13 +23,13 @@
 a:focus-visible,
 button:focus-visible,
 [tabindex]:focus-visible {
-  outline: 3px solid var(--aqua);
+  outline: 3px solid var(--blue-text);
   outline-offset: 4px;
 }
 
 .section-heading { max-width: 760px; }
 .section-heading--center { margin-inline: auto; text-align: center; }
-.section-heading__eyebrow { margin: 0 0 22px; color: var(--green); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+.section-heading__eyebrow { margin: 0 0 22px; color: var(--green-text); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
 .section-heading h2,
 .section-heading h3 { margin: 0; color: var(--navy-deep); font-size: clamp(2rem, 4.2vw, 3.5rem); font-weight: 600; line-height: 1.08; letter-spacing: -0.04em; }
 .section-heading__description { max-width: 650px; margin: 22px auto 0; color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.125rem); line-height: 1.75; }
@@ -42,7 +42,7 @@ button:focus-visible,
 .media { position: relative; overflow: hidden; background: var(--blue-light); }
 .media img { width: 100%; height: 100%; object-fit: cover; }
 .media__fallback { display: grid; width: 100%; height: 100%; min-height: 240px; place-content: center; gap: 12px; padding: 28px; color: var(--navy); text-align: center; background: linear-gradient(145deg, var(--blue-light), var(--sage)); }
-.media__fallback svg { margin: 0 auto; color: var(--blue); }
+.media__fallback svg { margin: 0 auto; color: var(--blue-text); }
 .media__fallback span { max-width: 260px; font-weight: 600; }
 .media__fallback small { color: var(--muted); font-size: 0.7rem; }
 

@@ -24,7 +24,7 @@ export function Hero() {
           <p className="hero__topics">Liquid Treatment <span>•</span> Resource Recovery <span>•</span> Green Infrastructure</p>
         </div>
         <div className="hero__visual">
-          <MediaPlaceholder src={`${import.meta.env.BASE_URL}images/home-hero-wastewater.webp`} alt="Representative pilot wastewater treatment system integrated with vegetation" requiredFilename="/images/home-hero-wastewater.webp" />
+          <MediaPlaceholder src={`${import.meta.env.BASE_URL}images/home-hero-wastewater.webp`} alt="Representative pilot wastewater treatment system integrated with vegetation" requiredFilename="/images/home-hero-wastewater.webp" loading="eager" fetchPriority="high" />
           <div className="circular-card">
             <p>Circular Water System</p>
             <div className="circular-card__flow">

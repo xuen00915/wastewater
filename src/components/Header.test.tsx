@@ -8,12 +8,19 @@ describe('Header', () => {
     const user = userEvent.setup()
     render(<Header />)
     const toggle = screen.getByRole('button', { name: 'Open navigation' })
+    const mobileNavigation = document.getElementById('mobile-navigation')!
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(mobileNavigation).toHaveAttribute('inert')
+    expect(mobileNavigation).toHaveAttribute('aria-hidden', 'true')
     await user.click(toggle)
     expect(toggle).toHaveAttribute('aria-expanded', 'true')
-    expect(screen.getByRole('navigation', { name: 'Mobile navigation' })).toHaveClass('mobile-nav--open')
+    expect(mobileNavigation).not.toHaveAttribute('inert')
+    expect(mobileNavigation).toHaveAttribute('aria-hidden', 'false')
+    const firstLink = mobileNavigation.querySelector('a')!
+    firstLink.focus()
     fireEvent.keyDown(document, { key: 'Escape' })
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(toggle).toHaveFocus()
   })
 
   it('closes the mobile menu after a destination is selected', async () => {
@@ -41,6 +48,8 @@ describe('Header', () => {
     sentinel.className = 'page-top-sentinel'
     document.body.prepend(sentinel)
     render(<Header />)
+    act(() => observerCallbacks[0]([{ isIntersecting: true } as IntersectionObserverEntry], {} as IntersectionObserver))
+    expect(screen.getByRole('banner')).not.toHaveClass('site-header--scrolled')
     act(() => observerCallbacks[0]([{ isIntersecting: false } as IntersectionObserverEntry], {} as IntersectionObserver))
     expect(screen.getByRole('banner')).toHaveClass('site-header--scrolled')
     sentinel.remove()

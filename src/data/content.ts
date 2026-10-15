@@ -15,7 +15,7 @@ export const navItems: readonly NavItem[] = [
   { label: 'Research', href: '#research' },
   { label: 'Projects', href: '#projects' },
   { label: 'Collaborate', href: '#collaborate' },
-  { label: 'Career', href: '#footer' },
+  { label: 'Career', href: '#career-opportunities' },
 ]
 
 export const processStages: readonly ProcessStage[] = [
@@ -71,6 +71,6 @@ export const collaborationTypes: readonly CollaborationType[] = [
 
 export const footerGroups = [
   { title: 'Explore', links: navItems.slice(0, 4) },
-  { title: 'Connect', links: [{ label: 'Collaborate', href: '#collaborate' }, { label: 'Career', href: '#footer' }, { label: 'Contact', href: '#collaborate' }] },
+  { title: 'Connect', links: [{ label: 'Collaborate', href: '#collaborate' }, { label: 'Career', href: '#career-opportunities' }, { label: 'Contact', href: '#collaborate' }] },
   { title: 'Research Areas', links: researchAreas.map((area) => ({ label: area.title, href: '#research' })) },
 ] as const

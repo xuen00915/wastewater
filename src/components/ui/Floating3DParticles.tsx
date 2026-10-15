@@ -158,9 +158,12 @@ export function Floating3DParticles({
     const resizeObserver = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(resize)
     const intersectionObserver = typeof IntersectionObserver === 'undefined' ? null : new IntersectionObserver(([entry]) => {
       inView = entry?.isIntersecting ?? true
-      if (!inView && animationFrame !== null) cancelAnimationFrame(animationFrame)
-      animationFrame = null
-      start()
+      if (!inView) {
+        if (animationFrame !== null) cancelAnimationFrame(animationFrame)
+        animationFrame = null
+      } else {
+        start()
+      }
     })
 
     reducedMotion = motionQuery.matches

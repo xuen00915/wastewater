@@ -13,8 +13,8 @@ describe('shared homepage UI', () => {
   })
 
   it('uses the requested semantic heading level', () => {
-    render(<SectionHeading level={3} title="A focused heading" />)
-    expect(screen.getByRole('heading', { level: 3, name: 'A focused heading' })).toBeInTheDocument()
+    render(<SectionHeading id="focused-heading" level={3} title="A focused heading" />)
+    expect(screen.getByRole('heading', { level: 3, name: 'A focused heading' })).toHaveAttribute('id', 'focused-heading')
   })
 
   it('shows a descriptive and replaceable fallback when media cannot load', () => {
@@ -25,6 +25,7 @@ describe('shared homepage UI', () => {
         requiredFilename="/images/missing.webp"
       />,
     )
+    expect(screen.getByRole('img', { name: 'Pilot wastewater treatment equipment' })).toHaveAttribute('loading', 'lazy')
     fireEvent.error(screen.getByRole('img', { name: 'Pilot wastewater treatment equipment' }))
     expect(screen.getByText('Pilot wastewater treatment equipment')).toBeInTheDocument()
     expect(screen.getByText('/images/missing.webp')).toBeInTheDocument()

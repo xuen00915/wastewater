@@ -22,7 +22,7 @@ export function ProcessSection() {
   return (
     <section ref={ref} className={`process section${active ? ' process--active' : ''}`} id="process" aria-labelledby="process-title">
       <div className="container">
-        <SectionHeading align="center" title="From Wastewater to Greener Buildings" description="One connected research pathway linking treatment, recovery and green infrastructure." />
+        <SectionHeading id="process-title" align="center" title="From Wastewater to Greener Buildings" description="One connected research pathway linking treatment, recovery and green infrastructure." />
         <ol className="process__flow" aria-label="Circular water research pathway">
           {processStages.map((stage) => (
             <li key={stage.number} tabIndex={0}>

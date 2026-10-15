@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { navItems } from '../data/content'
 import { ButtonLink } from './ui/ButtonLink'
 
@@ -6,22 +6,26 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 24)
   const [active, setActive] = useState('home')
+  const menuToggleRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const sentinel = document.querySelector('.page-top-sentinel')
     if (!sentinel || !('IntersectionObserver' in window)) return
-    const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting), { rootMargin: '-24px 0px 0px' })
+    const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting), { threshold: 0 })
     observer.observe(sentinel)
     return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false)
+      if (event.key === 'Escape' && menuOpen) {
+        setMenuOpen(false)
+        menuToggleRef.current?.focus()
+      }
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
-  }, [])
+  }, [menuOpen])
 
   useEffect(() => {
     if (!('IntersectionObserver' in window)) return
@@ -47,11 +51,11 @@ export function Header() {
           {navItems.map((item) => <a key={item.href} className={active === item.href.slice(1) ? 'active' : ''} href={item.href}>{item.label}</a>)}
         </nav>
         <ButtonLink className="header-cta" href="#collaborate">Collaborate With Us</ButtonLink>
-        <button className={`menu-toggle${menuOpen ? ' menu-toggle--open' : ''}`} type="button" aria-label="Open navigation" aria-controls="mobile-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>
+        <button ref={menuToggleRef} className={`menu-toggle${menuOpen ? ' menu-toggle--open' : ''}`} type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-controls="mobile-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>
           <span /><span />
         </button>
       </div>
-      <nav id="mobile-navigation" aria-label="Mobile navigation" className={`mobile-nav${menuOpen ? ' mobile-nav--open' : ''}`}>
+      <nav id="mobile-navigation" aria-label="Mobile navigation" aria-hidden={!menuOpen} inert={!menuOpen} className={`mobile-nav${menuOpen ? ' mobile-nav--open' : ''}`}>
         {navItems.map((item) => <a key={item.href} href={item.href} onClick={closeMenu}>{item.label}</a>)}
         <ButtonLink href="#collaborate" onClick={closeMenu}>Collaborate With Us</ButtonLink>
       </nav>
