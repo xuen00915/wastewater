@@ -15,5 +15,7 @@ describe('homepage destination integrity', () => {
     expect(screen.getByRole('link', { name: 'Collaborate With Us' })).toHaveAttribute('href', '#collaboration-options')
     expect(screen.getByRole('link', { name: 'Career' })).toHaveAttribute('href', '#career-opportunities')
     expect(document.getElementById('career-opportunities')).toHaveTextContent('Opportunities will be shared here when available')
+    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '#contact-availability')
+    expect(document.getElementById('contact-availability')).toHaveTextContent('Contact details will be published here when available')
   })
 })

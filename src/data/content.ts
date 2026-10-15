@@ -71,6 +71,6 @@ export const collaborationTypes: readonly CollaborationType[] = [
 
 export const footerGroups = [
   { title: 'Explore', links: navItems.slice(0, 4) },
-  { title: 'Connect', links: [{ label: 'Collaborate', href: '#collaborate' }, { label: 'Career', href: '#career-opportunities' }, { label: 'Contact', href: '#collaborate' }] },
+  { title: 'Connect', links: [{ label: 'Collaborate', href: '#collaborate' }, { label: 'Career', href: '#career-opportunities' }, { label: 'Contact', href: '#contact-availability' }] },
   { title: 'Research Areas', links: researchAreas.map((area) => ({ label: area.title, href: '#research' })) },
 ] as const

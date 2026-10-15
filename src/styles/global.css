@@ -9,4 +9,7 @@ body {
 ::selection { color: var(--navy-deep); background: var(--aqua); }
 main { overflow: clip; }
 h1, h2, h3, p { overflow-wrap: break-word; }
-section[id] { scroll-margin-top: 82px; }
+section[id],
+#collaboration-options,
+#career-opportunities,
+#contact-availability { scroll-margin-top: 82px; }
