@@ -10,6 +10,7 @@ export type CollaborationType = { title: string; description: string; icon: Icon
 export type ServiceCapability = { number: string; title: string; description: string; icon: IconName }
 export type ResearchTheme = { number: string; title: string; description: string; icon: IconName }
 export type CareerArea = { title: string; description: string; icon: IconName }
+export type TreatmentStage = { id: string; number: string; title: string; summary: string; detail: string; icon: IconName }
 
 const imagePath = (filename: string) => `${import.meta.env.BASE_URL}images/${filename}`
 
@@ -97,6 +98,14 @@ export const careerAreas: readonly CareerArea[] = [
   { title: 'Pilot Systems', description: 'Supporting the design, operation and learning around pilot-scale treatment installations.', icon: 'treatment' },
   { title: 'Monitoring', description: 'Collecting and interpreting measurements that help research teams understand system performance.', icon: 'water' },
   { title: 'Green Infrastructure', description: 'Connecting planted systems, water research and sustainable building applications.', icon: 'leaf' },
+]
+
+export const treatmentStages: readonly TreatmentStage[] = [
+  { id: 'inflow', number: '01', title: 'Wastewater enters', summary: 'Characterise the incoming water', detail: 'The pathway begins by understanding incoming water characteristics and the treatment questions they create.', icon: 'water' },
+  { id: 'treatment', number: '02', title: 'Treatment', summary: 'Evaluate liquid and solids approaches', detail: 'Liquid and solid streams move through treatment approaches selected for the research question and pilot context.', icon: 'treatment' },
+  { id: 'monitoring', number: '03', title: 'Monitoring', summary: 'Observe performance and change', detail: 'Measurements and observations help researchers understand system behavior and guide continued testing.', icon: 'flask' },
+  { id: 'recovery', number: '04', title: 'Resource recovery', summary: 'Explore value within treated streams', detail: 'Research can explore whether useful resources within treated liquid or solid streams are suitable for further study.', icon: 'recovery' },
+  { id: 'reuse', number: '05', title: 'Reuse & green wall', summary: 'Connect outputs with living systems', detail: 'Treated outputs can be studied in relation to reuse, planted systems and greener building applications.', icon: 'leaf' },
 ]
 
 export const footerGroups = [
