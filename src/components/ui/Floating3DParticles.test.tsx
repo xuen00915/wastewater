@@ -3,6 +3,67 @@ import { vi } from 'vitest'
 import { Floating3DParticles } from './Floating3DParticles'
 
 describe('Floating3DParticles', () => {
+  it('keeps each particle in a narrow buoyant lane instead of orbiting the hero', () => {
+    let frameCallback: FrameRequestCallback = () => undefined
+    const horizontalPositions: number[] = []
+    vi.spyOn(Math, 'random').mockReturnValue(0.5)
+    vi.stubGlobal('requestAnimationFrame', vi.fn((callback: FrameRequestCallback) => { frameCallback = callback; return 1 }))
+    vi.stubGlobal('cancelAnimationFrame', vi.fn())
+    vi.stubGlobal('matchMedia', () => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
+    vi.stubGlobal('ResizeObserver', class { observe = vi.fn(); disconnect = vi.fn() })
+    vi.stubGlobal('IntersectionObserver', class { observe = vi.fn(); disconnect = vi.fn() })
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({
+      beginPath: vi.fn(),
+      fill: vi.fn(),
+      stroke: vi.fn(),
+      arc: vi.fn((x: number) => horizontalPositions.push(x)),
+      clearRect: vi.fn(),
+      setTransform: vi.fn(),
+      fillStyle: '',
+      strokeStyle: '',
+      lineWidth: 1,
+    } as unknown as CanvasRenderingContext2D)
+    vi.spyOn(HTMLCanvasElement.prototype, 'getBoundingClientRect').mockReturnValue({ width: 800, height: 600 } as DOMRect)
+
+    const { unmount } = render(<Floating3DParticles quantity={1} />)
+    for (let index = 0; index < 1_500; index += 1) act(() => frameCallback(index * 16))
+
+    expect(Math.max(...horizontalPositions) - Math.min(...horizontalPositions)).toBeLessThan(32)
+    unmount()
+    vi.restoreAllMocks()
+    vi.unstubAllGlobals()
+  })
+
+  it('draws a visible rim and highlight so particles read as water bubbles', () => {
+    const arc = vi.fn()
+    const stroke = vi.fn()
+    vi.stubGlobal('requestAnimationFrame', vi.fn(() => 1))
+    vi.stubGlobal('cancelAnimationFrame', vi.fn())
+    vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
+    vi.stubGlobal('ResizeObserver', class { observe = vi.fn(); disconnect = vi.fn() })
+    vi.stubGlobal('IntersectionObserver', class { observe = vi.fn(); disconnect = vi.fn() })
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({
+      beginPath: vi.fn(),
+      fill: vi.fn(),
+      stroke,
+      arc,
+      clearRect: vi.fn(),
+      setTransform: vi.fn(),
+      fillStyle: '',
+      strokeStyle: '',
+      lineWidth: 1,
+    } as unknown as CanvasRenderingContext2D)
+    vi.spyOn(HTMLCanvasElement.prototype, 'getBoundingClientRect').mockReturnValue({ width: 800, height: 600 } as DOMRect)
+
+    const { unmount } = render(<Floating3DParticles quantity={1} />)
+
+    expect(stroke).toHaveBeenCalledOnce()
+    expect(arc).toHaveBeenCalledTimes(2)
+    unmount()
+    vi.restoreAllMocks()
+    vi.unstubAllGlobals()
+  })
+
   it('keeps one animation loop and cancels it when unmounted', () => {
     let intersectionCallback: IntersectionObserverCallback = () => undefined
     let nextFrame = 0
@@ -28,6 +89,7 @@ describe('Floating3DParticles', () => {
     vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({
       beginPath: vi.fn(),
       fill: vi.fn(),
+      stroke: vi.fn(),
       arc: vi.fn(),
       clearRect: vi.fn(),
       setTransform: vi.fn(),
@@ -55,7 +117,7 @@ describe('Floating3DParticles', () => {
     vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
     vi.stubGlobal('ResizeObserver', class { observe = vi.fn(); disconnect = vi.fn() })
     vi.stubGlobal('IntersectionObserver', class { observe = vi.fn(); disconnect = vi.fn() })
-    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({ beginPath: vi.fn(), fill: vi.fn(), arc, clearRect, setTransform: vi.fn(), fillStyle: '' } as unknown as CanvasRenderingContext2D)
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({ beginPath: vi.fn(), fill: vi.fn(), stroke: vi.fn(), arc, clearRect, setTransform: vi.fn(), fillStyle: '', strokeStyle: '', lineWidth: 1 } as unknown as CanvasRenderingContext2D)
     vi.spyOn(HTMLCanvasElement.prototype, 'getBoundingClientRect').mockReturnValue({ width: 320, height: 240 } as DOMRect)
 
     const { unmount } = render(<Floating3DParticles quantity={10} />)
