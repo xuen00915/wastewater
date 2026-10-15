@@ -5,10 +5,13 @@ type RevealProps = PropsWithChildren<{ className?: string; delay?: number }>
 export function Reveal({ children, className = '', delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [prepared, setPrepared] = useState(false)
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(() => typeof window === 'undefined' || !('IntersectionObserver' in window))
 
   useEffect(() => {
-    if (!('IntersectionObserver' in window) || !ref.current) return
+    if (!('IntersectionObserver' in window) || !ref.current) {
+      setVisible(true)
+      return
+    }
     setPrepared(true)
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {

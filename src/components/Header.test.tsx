@@ -29,6 +29,7 @@ describe('Header', () => {
     expect(toggle).toHaveAttribute('aria-expanded', 'true')
     expect(mobileNavigation).not.toHaveAttribute('inert')
     expect(mobileNavigation).toHaveAttribute('aria-hidden', 'false')
+    expect(getComputedStyle(mobileNavigation).overflowY).toBe('auto')
     const firstLink = mobileNavigation.querySelector('a')!
     firstLink.focus()
     fireEvent.keyDown(document, { key: 'Escape' })

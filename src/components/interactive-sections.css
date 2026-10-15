@@ -13,6 +13,7 @@
 .desktop-nav a:hover::after, .desktop-nav a.active::after { transform: scaleX(1); }
 .header-cta { min-height: 44px; justify-self: end; padding-inline: 20px; font-size: 0.8rem; }
 .menu-toggle, .mobile-nav { display: none; }
+.mobile-nav { overflow-y: auto; }
 
 .hero { position: relative; min-height: min(980px, 100svh); padding: 116px var(--gutter) 72px; overflow: hidden; background: var(--blue-light); }
 .floating-3d-particles { pointer-events: none; }
@@ -43,6 +44,9 @@
 .water-contours i:nth-child(1) { --i: 0; transform: rotate(10deg); }
 .water-contours i:nth-child(2) { --i: 1; transform: rotate(20deg); }
 .water-contours i:nth-child(3) { --i: 2; transform: rotate(30deg); }
+
+.js .hero__eyebrow,.js .hero h1,.js .hero__description,.js .hero__actions,.js .hero__topics,.js .hero__visual{animation:hero-enter 780ms cubic-bezier(.2,.7,.2,1) both}.js .hero h1{animation-delay:70ms}.js .hero__description{animation-delay:140ms}.js .hero__actions{animation-delay:210ms}.js .hero__topics{animation-delay:270ms}.js .hero__visual{animation-delay:110ms}
+@keyframes hero-enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
 .section { padding: var(--section-space) var(--gutter); }
 .container { width: min(100%, var(--container)); margin: 0 auto; }
@@ -123,4 +127,8 @@
   .challenge__statements { grid-template-columns: 1fr; }
   .challenge__statements article { padding: 24px 0; }
   .challenge__statements article + article { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .hero__eyebrow,.js .hero h1,.js .hero__description,.js .hero__actions,.js .hero__topics,.js .hero__visual{animation:none}
 }

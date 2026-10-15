@@ -1,4 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
+import { StrictMode } from 'react'
+import { vi } from 'vitest'
 import { ButtonLink } from './ButtonLink'
 import { MediaPlaceholder } from './MediaPlaceholder'
 import { Reveal } from './Reveal'
@@ -33,6 +35,18 @@ describe('shared homepage UI', () => {
 
   it('renders reveal content visibly when observers are unavailable', () => {
     render(<Reveal><p>Research content</p></Reveal>)
-    expect(screen.getByText('Research content').parentElement).not.toHaveAttribute('aria-hidden')
+    expect(screen.getByText('Research content').parentElement).toHaveClass('reveal--visible')
+  })
+
+  it('disconnects reveal observers during Strict Mode cleanup', () => {
+    const disconnect = vi.fn()
+    vi.stubGlobal('IntersectionObserver', class {
+      observe = vi.fn()
+      disconnect = disconnect
+    })
+    const { unmount } = render(<StrictMode><Reveal><p>Observed content</p></Reveal></StrictMode>)
+    unmount()
+    expect(disconnect).toHaveBeenCalledTimes(2)
+    vi.unstubAllGlobals()
   })
 })

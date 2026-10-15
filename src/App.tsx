@@ -9,6 +9,7 @@ import { ServicesPage } from './pages/ServicesPage'
 import { resolvePageId, type PageId } from './site'
 import './components/interactive-sections.css'
 import './components/content-sections.css'
+import './components/page-sections.css'
 
 const pageComponents: Record<PageId, ComponentType> = {
   home: HomePage,

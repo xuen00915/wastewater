@@ -44,7 +44,7 @@ export function Header({ currentPage }: { currentPage: PageId }) {
           <span /><span />
         </button>
       </div>
-      <nav id="mobile-navigation" aria-label="Mobile navigation" aria-hidden={!menuOpen} inert={!menuOpen} className={`mobile-nav${menuOpen ? ' mobile-nav--open' : ''}`}>
+      <nav id="mobile-navigation" aria-label="Mobile navigation" aria-hidden={!menuOpen} inert={!menuOpen} className={`mobile-nav${menuOpen ? ' mobile-nav--open' : ''}`} style={{ overflowY: 'auto' }}>
         {navItems.map((item) => <a key={item.page} href={pageHref(item.page)} aria-current={currentPage === item.page ? 'page' : undefined} onClick={closeMenu}>{item.label}</a>)}
         <ButtonLink href={pageHref('collaborate')} onClick={closeMenu}>Collaborate With Us</ButtonLink>
       </nav>
