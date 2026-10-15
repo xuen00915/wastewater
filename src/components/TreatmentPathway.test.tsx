@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { vi } from 'vitest'
 import { TreatmentPathway } from './TreatmentPathway'
 
 describe('TreatmentPathway', () => {
@@ -59,5 +60,31 @@ describe('TreatmentPathway', () => {
     const { container } = render(<TreatmentPathway />)
     expect(container).toHaveTextContent('generic research pathway')
     expect(container).not.toHaveTextContent(/proprietary|universal treatment train/i)
+  })
+
+  it('advances the focused treatment zone as each story point enters the scroll focus area', () => {
+    let callback: IntersectionObserverCallback = () => undefined
+    const observe = vi.fn()
+    const disconnect = vi.fn()
+    vi.stubGlobal('IntersectionObserver', class {
+      constructor(nextCallback: IntersectionObserverCallback) { callback = nextCallback }
+      observe = observe
+      disconnect = disconnect
+    })
+
+    const { unmount } = render(<TreatmentPathway />)
+    const stages = screen.getAllByRole('tab')
+
+    stages.forEach((stage) => expect(observe).toHaveBeenCalledWith(stage))
+    act(() => callback([
+      { isIntersecting: true, target: stages[3] } as unknown as IntersectionObserverEntry,
+    ], {} as IntersectionObserver))
+
+    expect(stages[3]).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Separation & monitoring')
+
+    unmount()
+    expect(disconnect).toHaveBeenCalled()
+    vi.unstubAllGlobals()
   })
 })

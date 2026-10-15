@@ -1,17 +1,288 @@
-.treatment-pathway{overflow:clip;background:var(--navy-deep);color:var(--white)}
-.treatment-pathway__intro{max-width:780px}.treatment-pathway__intro .section-kicker{color:var(--aqua)}.treatment-pathway__intro h2{max-width:760px;margin:0;color:var(--white);font-size:clamp(2.35rem,4.6vw,3.75rem);font-weight:600;line-height:1.06;letter-spacing:-.045em}.treatment-pathway__intro>p:last-child{max-width:670px;margin:24px 0 0;color:#b9ccd7;font-size:1rem;line-height:1.75}
-.treatment-pathway__layout{margin-top:72px}
-.treatment-island{position:relative;padding:clamp(22px,3vw,42px);overflow:hidden;border:1px solid rgb(255 255 255/.13);border-radius:26px;background:radial-gradient(circle at 54% 34%,rgb(45 212 191/.13),transparent 34%),linear-gradient(150deg,#eef9f9 0%,#dceff2 100%);box-shadow:0 32px 80px rgb(0 14 27/.3)}
-.treatment-island:after{position:absolute;right:0;bottom:0;left:0;height:4px;content:'';transform:scaleX(var(--treatment-progress));transform-origin:left;background:linear-gradient(90deg,var(--blue),var(--aqua));transition:transform 650ms cubic-bezier(.2,.7,.2,1)}
-.treatment-island__art{position:relative;z-index:1;display:grid;min-height:420px;place-items:center}.treatment-island__art img{display:block;width:100%;height:auto;filter:drop-shadow(0 28px 30px rgb(6 36 58/.2))}
-.treatment-island__wash{position:absolute;z-index:2;top:var(--active-y);left:var(--active-x);width:clamp(90px,10vw,150px);aspect-ratio:1;transform:translate(-50%,-50%);border:2px solid rgb(45 212 191/.75);border-radius:50%;background:radial-gradient(circle,rgb(45 212 191/.22),transparent 68%);box-shadow:0 0 0 12px rgb(45 212 191/.08);pointer-events:none;animation:island-ripple 2.4s ease-in-out infinite}
-.treatment-pathway__stages{position:absolute;z-index:3;inset:0}.treatment-stage{position:absolute;top:var(--stage-y);left:var(--stage-x);display:block;width:44px;height:44px;padding:0;transform:translate(-50%,-50%);border:0;color:var(--navy-deep);background:transparent;text-align:left;cursor:pointer;transition:transform var(--transition)}.treatment-stage:hover,.treatment-stage:focus-visible{transform:translate(-50%,-50%) scale(1.06)}
-.treatment-stage__node{position:relative;display:grid;width:44px;height:44px;place-items:center;border:2px solid var(--white);border-radius:50%;color:var(--white);background:var(--navy);box-shadow:0 8px 22px rgb(6 36 58/.3);transition:color var(--transition),background-color var(--transition),border-color var(--transition)}.treatment-stage__node>span{font-size:.7rem;font-weight:800;letter-spacing:.08em}.treatment-stage__node:after{position:absolute;inset:-7px;border:1px solid rgb(8 47 73/.3);border-radius:50%;content:'';opacity:0;transform:scale(.72)}
-.treatment-stage__label{position:absolute;bottom:calc(100% + 10px);left:50%;display:flex;width:max-content;max-width:210px;padding:9px 12px;align-items:center;gap:8px;transform:translateX(-50%);border:1px solid rgb(255 255 255/.18);border-radius:10px;color:var(--white);background:rgb(6 36 58/.94);box-shadow:0 12px 28px rgb(6 36 58/.22);transition:color var(--transition),background-color var(--transition),border-color var(--transition)}.treatment-stage__label>span{display:grid}.treatment-stage__label strong{font-size:.76rem;font-weight:700;line-height:1.25;white-space:nowrap}.treatment-stage__label small{display:none}
-.treatment-stage--active .treatment-stage__node{border-color:var(--navy-deep);color:var(--navy-deep);background:var(--aqua)}.treatment-stage--active .treatment-stage__node:after{opacity:1;animation:island-node-pulse 2s ease-out infinite}.treatment-stage--active .treatment-stage__label{border-color:var(--aqua);color:var(--navy-deep);background:var(--aqua)}
-.treatment-pathway__panel{display:grid;min-height:220px;margin-top:28px;padding:38px 42px;grid-template-columns:120px minmax(0,1fr);gap:30px;border:1px solid rgb(255 255 255/.13);border-radius:20px;background:rgb(255 255 255/.04)}.treatment-pathway__panel>span{color:var(--aqua);font-size:.75rem;font-weight:700;letter-spacing:.16em}.treatment-pathway__panel div>p:first-child{margin:0 0 8px;color:var(--aqua);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.treatment-pathway__panel h3{margin:0;color:var(--white);font-size:clamp(1.7rem,3vw,2.5rem);font-weight:600}.treatment-pathway__panel div>p:last-child{max-width:700px;margin:16px 0 0;color:#b9ccd7;line-height:1.75}
-@keyframes island-ripple{0%,100%{opacity:.62;transform:translate(-50%,-50%) scale(.92)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
-@keyframes island-node-pulse{0%{opacity:.65;transform:scale(.78)}75%,100%{opacity:0;transform:scale(1.35)}}
-@media(max-width:900px){.treatment-island{padding:24px 18px 18px}.treatment-island__art{min-height:0}.treatment-island__wash{display:none}.treatment-pathway__stages{position:relative;display:grid;margin-top:18px;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.treatment-stage{position:relative;top:auto;left:auto;display:flex;width:100%;height:auto;min-height:76px;padding:12px;align-items:center;gap:12px;transform:none;border:1px solid rgb(8 47 73/.13);border-radius:12px;background:rgb(255 255 255/.76)}.treatment-stage:hover,.treatment-stage:focus-visible{transform:none;border-color:var(--blue)}.treatment-stage__node{flex:0 0 42px;width:42px;height:42px}.treatment-stage__label{position:static;width:auto;max-width:none;padding:0;gap:8px;transform:none;border:0;color:var(--navy-deep);background:transparent;box-shadow:none}.treatment-stage__label>svg{display:none}.treatment-stage__label strong{font-size:.8rem;white-space:normal}.treatment-stage__label small{display:block;margin-top:3px;color:var(--muted);font-size:.68rem;line-height:1.35}.treatment-stage--active{border-color:var(--aqua);background:rgb(221 237 228/.85)}.treatment-stage--active .treatment-stage__label{color:var(--navy-deep);background:transparent}.treatment-pathway__panel{margin-top:22px}}
-@media(max-width:560px){.treatment-pathway__layout{margin-top:52px}.treatment-island{margin-inline:-4px;padding:18px 10px 12px;border-radius:18px}.treatment-pathway__stages{grid-template-columns:1fr}.treatment-stage{min-height:68px}.treatment-pathway__panel{min-height:0;padding:28px 24px;grid-template-columns:1fr;gap:12px}}
-@media(prefers-reduced-motion:reduce){.treatment-island:after,.treatment-stage,.treatment-stage__node,.treatment-stage__label{transition:none}.treatment-island__wash,.treatment-stage--active .treatment-stage__node:after{animation:none}.treatment-stage:hover,.treatment-stage:focus-visible{transform:translate(-50%,-50%)}@media(max-width:900px){.treatment-stage:hover,.treatment-stage:focus-visible{transform:none}}}
+.treatment-pathway {
+  overflow: clip;
+  color: var(--white);
+  background: var(--navy-deep);
+}
+
+.treatment-pathway__intro { max-width: 780px; }
+.treatment-pathway__intro .section-kicker { color: var(--aqua); }
+.treatment-pathway__intro h2 {
+  max-width: 760px;
+  margin: 0;
+  color: var(--white);
+  font-size: clamp(2.35rem, 4.6vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -.04em;
+}
+.treatment-pathway__intro > p:last-child {
+  max-width: 670px;
+  margin: 24px 0 0;
+  color: #b9ccd7;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.treatment-pathway__layout {
+  display: grid;
+  margin-top: 72px;
+  grid-template-columns: minmax(0, 1.28fr) minmax(320px, .72fr);
+  align-items: start;
+  gap: clamp(42px, 6vw, 88px);
+}
+
+.treatment-pathway__visual {
+  position: sticky;
+  top: 112px;
+}
+
+.treatment-island {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / .13);
+  border-radius: 26px;
+  background: #dceff2;
+  box-shadow: 0 32px 80px rgb(0 14 27 / .3);
+}
+.treatment-island::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  content: '';
+  transform: scaleX(var(--treatment-progress));
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--blue), var(--aqua));
+  transition: transform 650ms cubic-bezier(.16, 1, .3, 1);
+}
+.treatment-island__viewport {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2 / 1;
+  background: radial-gradient(circle at 54% 34%, rgb(45 212 191 / .16), transparent 38%), #e7f4f5;
+}
+.treatment-island__scene {
+  position: absolute;
+  inset: 0;
+  transform: translate(var(--focus-shift-x), var(--focus-shift-y)) scale(1.26);
+  transform-origin: center;
+  transition: transform 780ms cubic-bezier(.16, 1, .3, 1);
+  will-change: transform;
+}
+.treatment-island__scene img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: drop-shadow(0 28px 30px rgb(6 36 58 / .2));
+}
+.treatment-island__marker {
+  position: absolute;
+  z-index: 2;
+  top: var(--stage-y);
+  left: var(--stage-x);
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  transform: translate(-50%, -50%) scale(.72);
+  border: 1px solid rgb(255 255 255 / .8);
+  border-radius: 50%;
+  opacity: .38;
+  color: var(--white);
+  background: rgb(8 47 73 / .82);
+  box-shadow: 0 5px 14px rgb(6 36 58 / .24);
+  transition: opacity 240ms ease, transform 420ms cubic-bezier(.16, 1, .3, 1), background-color 240ms ease;
+}
+.treatment-island__marker > span {
+  font-size: .54rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.treatment-island__marker--active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  color: var(--navy-deep);
+  background: var(--aqua);
+}
+.treatment-island__marker--active::after {
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgb(45 212 191 / .72);
+  border-radius: 50%;
+  content: '';
+  animation: island-node-pulse 1.8s ease-out infinite;
+}
+.treatment-island__wash {
+  position: absolute;
+  z-index: 1;
+  top: var(--active-y);
+  left: var(--active-x);
+  width: clamp(88px, 10vw, 144px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(45 212 191 / .28), transparent 68%);
+  pointer-events: none;
+}
+.treatment-island__status {
+  display: flex;
+  min-height: 66px;
+  padding: 16px 22px 18px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--navy-deep);
+  background: rgb(248 250 248 / .96);
+}
+.treatment-island__status span {
+  color: var(--muted);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.treatment-island__status strong {
+  font-size: .82rem;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.treatment-pathway__stages {
+  min-width: 0;
+  border-top: 1px solid rgb(255 255 255 / .16);
+}
+.treatment-stage-shell {
+  display: flex;
+  min-height: clamp(270px, 40vh, 380px);
+  padding: clamp(38px, 6vh, 66px) 0;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid rgb(255 255 255 / .16);
+  opacity: .52;
+  transition: opacity 260ms ease;
+}
+.treatment-stage-shell--active { opacity: 1; }
+.treatment-stage {
+  display: grid;
+  width: 100%;
+  padding: 0;
+  grid-template-columns: 52px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.treatment-stage__node {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / .35);
+  border-radius: 50%;
+  color: #bdd1dc;
+  transition: color 240ms ease, background-color 240ms ease, border-color 240ms ease;
+}
+.treatment-stage__node > span {
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+.treatment-stage__label {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+.treatment-stage__label > svg {
+  flex: 0 0 auto;
+  color: var(--aqua);
+}
+.treatment-stage__label > span { display: grid; gap: 7px; }
+.treatment-stage__label strong {
+  color: var(--white);
+  font-size: clamp(1.18rem, 2vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.treatment-stage__label small {
+  color: #b9ccd7;
+  font-size: .82rem;
+  line-height: 1.5;
+}
+.treatment-stage-shell--active .treatment-stage__node {
+  border-color: var(--aqua);
+  color: var(--navy-deep);
+  background: var(--aqua);
+}
+.treatment-pathway__panel {
+  margin: 22px 0 0 72px;
+}
+.treatment-pathway__panel h3 {
+  margin: 0 0 10px;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.treatment-pathway__panel p {
+  max-width: 44ch;
+  margin: 0;
+  color: #d4e2e9;
+  font-size: .94rem;
+  line-height: 1.75;
+}
+
+@keyframes island-node-pulse {
+  0% { opacity: .75; transform: scale(.8); }
+  80%, 100% { opacity: 0; transform: scale(1.45); }
+}
+
+@media (max-width: 900px) {
+  .treatment-pathway__layout {
+    display: block;
+    margin-top: 56px;
+  }
+  .treatment-pathway__visual {
+    z-index: 4;
+    top: 76px;
+    padding-bottom: 18px;
+    background: var(--navy-deep);
+  }
+  .treatment-island { border-radius: 20px; }
+  .treatment-island__scene { transform: translate(var(--focus-shift-x), var(--focus-shift-y)) scale(1.18); }
+  .treatment-pathway__stages { margin-top: 18px; }
+  .treatment-stage-shell { min-height: clamp(240px, 38vh, 320px); }
+}
+
+@media (max-width: 560px) {
+  .treatment-pathway__layout { margin-top: 48px; }
+  .treatment-pathway__visual { top: 68px; margin-inline: -4px; }
+  .treatment-island { border-radius: 16px; }
+  .treatment-island__status { min-height: 58px; padding: 12px 15px 14px; }
+  .treatment-island__status span { display: none; }
+  .treatment-island__status strong { width: 100%; font-size: .74rem; text-align: left; }
+  .treatment-island__marker { width: 24px; height: 24px; }
+  .treatment-island__wash { width: 76px; }
+  .treatment-stage-shell { min-height: 250px; padding-block: 40px; }
+  .treatment-stage { grid-template-columns: 46px minmax(0, 1fr); gap: 14px; }
+  .treatment-stage__node { width: 46px; height: 46px; }
+  .treatment-stage__label { gap: 9px; }
+  .treatment-stage__label strong { font-size: 1.12rem; }
+  .treatment-stage__label small { font-size: .78rem; }
+  .treatment-pathway__panel { margin: 18px 0 0 60px; }
+  .treatment-pathway__panel p { font-size: .88rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .treatment-island::after,
+  .treatment-island__scene,
+  .treatment-island__marker,
+  .treatment-stage-shell,
+  .treatment-stage__node { transition: none; }
+  .treatment-island__scene { transform: none; will-change: auto; }
+  .treatment-island__marker--active::after { animation: none; }
+}
