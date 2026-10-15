@@ -8,6 +8,7 @@ describe('Hero', () => {
     expect(container.querySelector('canvas.hero__particles')).toBeInTheDocument()
     expect(container.querySelector('.water-contours')).toBeInTheDocument()
     expect(screen.queryByRole('img', { name: /water particles flowing into a building green wall/i })).not.toBeInTheDocument()
+    expect(container.querySelector('.hero__eyebrow')).not.toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Transforming Wastewater')
   })
 })

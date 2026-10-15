@@ -37,6 +37,11 @@ describe('six-page site composition', () => {
     expect(container.querySelector('canvas')).not.toBeInTheDocument()
   })
 
+  it.each(pages)('does not render eyebrow labels on %s', (pathname) => {
+    const { container } = renderPath(pathname)
+    expect(container.querySelector('.hero__eyebrow, .section-kicker, .section-number, .section-heading__eyebrow')).not.toBeInTheDocument()
+  })
+
   it('keeps project and career availability honest', () => {
     renderPath('/projects/')
     expect(screen.getAllByText('Project details coming soon')).toHaveLength(3)

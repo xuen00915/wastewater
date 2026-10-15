@@ -65,7 +65,6 @@ export function TreatmentPathway() {
     <section className="treatment-pathway section" aria-labelledby="treatment-pathway-title">
       <div className="container">
         <Reveal className="treatment-pathway__intro">
-          <p className="section-kicker">How the System Connects</p>
           <h2 id="treatment-pathway-title">How Wastewater Treatment Works</h2>
           <p>This interactive explainer presents a generic research pathway. Individual treatment systems depend on their water, research question and application context.</p>
         </Reveal>

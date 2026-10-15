@@ -15,7 +15,6 @@ export function Hero() {
       <div className="water-contours" aria-hidden="true"><i /><i /><i /></div>
       <div className="hero__inner">
         <div className="hero__copy">
-          <p className="hero__eyebrow">Water <span>•</span> Resources <span>•</span> Greener Environments</p>
           <h1>Transforming <em>Wastewater</em> Into <em>Resources</em> for <em>Greener Buildings</em></h1>
           <p className="hero__description">Advancing wastewater treatment, resource recovery and green-wall research as one connected circular system for more sustainable built environments.</p>
           <div className="hero__actions">

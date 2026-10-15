@@ -13,7 +13,6 @@ export function ChallengeSection() {
       <div className="container">
         <Reveal className="challenge__grid">
           <div className="challenge__title">
-            <p className="section-number">01</p>
             <h2 id="challenge-title">Water Shouldn’t End After Treatment</h2>
           </div>
           <div className="challenge__body">

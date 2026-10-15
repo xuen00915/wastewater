@@ -5,7 +5,6 @@
 }
 
 .treatment-pathway__intro { max-width: 780px; }
-.treatment-pathway__intro .section-kicker { color: var(--aqua); }
 .treatment-pathway__intro h2 {
   max-width: 760px;
   margin: 0;
