@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { navItems } from '../data/content'
-import { resolvePageId } from '../site'
+import { pageHref, type PageId } from '../site'
 import { ButtonLink } from './ui/ButtonLink'
 
-export function Header() {
+export function Header({ currentPage }: { currentPage: PageId }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 24)
-  const active = resolvePageId(typeof window === 'undefined' ? '/' : window.location.pathname)
   const menuToggleRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
@@ -33,21 +32,21 @@ export function Header() {
   return (
     <header className={`site-header${scrolled ? ' site-header--scrolled' : ''}`}>
       <div className="site-header__inner">
-        <a className="wordmark" href="#home" aria-label="Wastewater Treatment home">
+        <a className="wordmark" href={pageHref('home')} aria-label="Wastewater Treatment home">
           <span className="wordmark__mark" aria-hidden="true"><i /><i /></span>
           <span>Wastewater <strong>Treatment</strong></span>
         </a>
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) => <a key={item.href} className={active === item.page ? 'active' : ''} href={item.href}>{item.label}</a>)}
+          {navItems.map((item) => <a key={item.page} className={currentPage === item.page ? 'active' : ''} href={pageHref(item.page)} aria-current={currentPage === item.page ? 'page' : undefined}>{item.label}</a>)}
         </nav>
-        <ButtonLink className="header-cta" href="#collaborate">Collaborate With Us</ButtonLink>
+        <ButtonLink className="header-cta" href={pageHref('collaborate')}>Collaborate With Us</ButtonLink>
         <button ref={menuToggleRef} className={`menu-toggle${menuOpen ? ' menu-toggle--open' : ''}`} type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-controls="mobile-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>
           <span /><span />
         </button>
       </div>
       <nav id="mobile-navigation" aria-label="Mobile navigation" aria-hidden={!menuOpen} inert={!menuOpen} className={`mobile-nav${menuOpen ? ' mobile-nav--open' : ''}`}>
-        {navItems.map((item) => <a key={item.href} href={item.href} onClick={closeMenu}>{item.label}</a>)}
-        <ButtonLink href="#collaborate" onClick={closeMenu}>Collaborate With Us</ButtonLink>
+        {navItems.map((item) => <a key={item.page} href={pageHref(item.page)} aria-current={currentPage === item.page ? 'page' : undefined} onClick={closeMenu}>{item.label}</a>)}
+        <ButtonLink href={pageHref('collaborate')} onClick={closeMenu}>Collaborate With Us</ButtonLink>
       </nav>
     </header>
   )

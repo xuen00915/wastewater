@@ -3,15 +3,16 @@ import { ChallengeSection } from './components/ChallengeSection'
 import { CollaborationSection } from './components/CollaborationSection'
 import { EditorialFeature } from './components/EditorialFeature'
 import { FinalCta } from './components/FinalCta'
-import { Footer } from './components/Footer'
-import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { ProcessSection } from './components/ProcessSection'
 import { ProjectsSection } from './components/ProjectsSection'
 import { ResearchPillars } from './components/ResearchPillars'
+import { SiteShell } from './components/SiteShell'
+import { resolvePageId } from './site'
 import './components/interactive-sections.css'
 import './components/content-sections.css'
 
 export function App() {
-  return <><div className="page-top-sentinel" aria-hidden="true" /><Header /><main><Hero /><ChallengeSection /><ProcessSection /><ResearchPillars /><EditorialFeature /><BenefitsSection /><ProjectsSection /><CollaborationSection /><FinalCta /></main><Footer /></>
+  const currentPage = resolvePageId(typeof window === 'undefined' ? '/' : window.location.pathname)
+  return <SiteShell currentPage={currentPage}><Hero /><ChallengeSection /><ProcessSection /><ResearchPillars /><EditorialFeature /><BenefitsSection /><ProjectsSection /><CollaborationSection /><FinalCta /></SiteShell>
 }
