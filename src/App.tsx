@@ -13,5 +13,5 @@ import './components/interactive-sections.css'
 import './components/content-sections.css'
 
 export function App() {
-  return <><Header /><main><Hero /><ChallengeSection /><ProcessSection /><ResearchPillars /><EditorialFeature /><BenefitsSection /><ProjectsSection /><CollaborationSection /><FinalCta /></main><Footer /></>
+  return <><div className="page-top-sentinel" aria-hidden="true" /><Header /><main><Hero /><ChallengeSection /><ProcessSection /><ResearchPillars /><EditorialFeature /><BenefitsSection /><ProjectsSection /><CollaborationSection /><FinalCta /></main><Footer /></>
 }

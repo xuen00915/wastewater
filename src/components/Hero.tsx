@@ -1,4 +1,5 @@
 import { ButtonLink } from './ui/ButtonLink'
+import { Floating3DParticles } from './ui/Floating3DParticles'
 import { Icon } from './ui/Icon'
 import { MediaPlaceholder } from './ui/MediaPlaceholder'
 
@@ -9,6 +10,7 @@ const circularStages = [
 export function Hero() {
   return (
     <section className="hero" id="home">
+      <Floating3DParticles className="hero__particles" />
       <div className="water-contours" aria-hidden="true"><i /><i /><i /></div>
       <div className="hero__inner">
         <div className="hero__copy">
@@ -22,7 +24,7 @@ export function Hero() {
           <p className="hero__topics">Liquid Treatment <span>•</span> Resource Recovery <span>•</span> Green Infrastructure</p>
         </div>
         <div className="hero__visual">
-          <MediaPlaceholder src="/images/home-hero-wastewater.webp" alt="Representative pilot wastewater treatment system integrated with vegetation" requiredFilename="/images/home-hero-wastewater.webp" />
+          <MediaPlaceholder src={`${import.meta.env.BASE_URL}images/home-hero-wastewater.webp`} alt="Representative pilot wastewater treatment system integrated with vegetation" requiredFilename="/images/home-hero-wastewater.webp" />
           <div className="circular-card">
             <p>Circular Water System</p>
             <div className="circular-card__flow">

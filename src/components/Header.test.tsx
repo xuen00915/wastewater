@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { vi } from 'vitest'
 import { Header } from './Header'
 
 describe('Header', () => {
@@ -23,10 +24,26 @@ describe('Header', () => {
     expect(screen.getByRole('button', { name: 'Open navigation' })).toHaveAttribute('aria-expanded', 'false')
   })
 
-  it('changes visual state after the page scrolls', () => {
+  it('changes visual state after the page-top sentinel leaves view', () => {
+    const observerCallbacks: IntersectionObserverCallback[] = []
+    class IntersectionObserverMock {
+      root = null
+      rootMargin = ''
+      thresholds = []
+      constructor(callback: IntersectionObserverCallback) { observerCallbacks.push(callback) }
+      disconnect = vi.fn()
+      observe = vi.fn()
+      takeRecords = vi.fn(() => [])
+      unobserve = vi.fn()
+    }
+    vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
+    const sentinel = document.createElement('div')
+    sentinel.className = 'page-top-sentinel'
+    document.body.prepend(sentinel)
     render(<Header />)
-    Object.defineProperty(window, 'scrollY', { configurable: true, value: 80 })
-    fireEvent.scroll(window)
+    act(() => observerCallbacks[0]([{ isIntersecting: false } as IntersectionObserverEntry], {} as IntersectionObserver))
     expect(screen.getByRole('banner')).toHaveClass('site-header--scrolled')
+    sentinel.remove()
+    vi.unstubAllGlobals()
   })
 })

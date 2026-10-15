@@ -9,7 +9,7 @@
   font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
-  transition: color var(--transition), background-color var(--transition), border-color var(--transition);
+  transition: color var(--transition), background-color var(--transition), border-color var(--transition), transform var(--transition);
 }
 
 .button-link--primary { color: var(--white); background: var(--navy); }
@@ -17,6 +17,7 @@
 .button-link--secondary { color: var(--navy); border-color: var(--navy); background: transparent; }
 .button-link--secondary:hover { color: var(--white); background: var(--navy); }
 .button-link--light { color: var(--navy); background: var(--white); }
+.button-link:active { transform: translateY(1px); }
 
 .button-link:focus-visible,
 a:focus-visible,

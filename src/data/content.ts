@@ -7,6 +7,8 @@ export type Benefit = { number: string; title: string; description: string }
 export type Project = { title: string; description: string; type: string; status: string; image: string; alt: string }
 export type CollaborationType = { title: string; description: string; icon: IconName }
 
+const imagePath = (filename: string) => `${import.meta.env.BASE_URL}images/${filename}`
+
 export const navItems: readonly NavItem[] = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#process' },
@@ -29,21 +31,21 @@ export const researchAreas: readonly ResearchArea[] = [
     title: 'Liquid Treatment',
     description: 'Research into wastewater treatment processes, water quality and treatment performance.',
     link: 'Explore Liquid Treatment',
-    icon: 'water', image: '/images/research-liquid-treatment.webp',
+    icon: 'water', image: imagePath('research-liquid-treatment.webp'),
     alt: 'Representative wastewater treatment and water-quality research',
   },
   {
     title: 'Solid Treatment',
     description: 'Research into solids management, treatment and opportunities for resource recovery.',
     link: 'Explore Solid Treatment',
-    icon: 'solids', image: '/images/research-solid-treatment.webp',
+    icon: 'solids', image: imagePath('research-solid-treatment.webp'),
     alt: 'Representative solids and materials treatment research',
   },
   {
     title: 'Green Wall',
     description: 'Research into the integration of recovered resources with planted vertical systems and building environments.',
     link: 'Explore Green Wall',
-    icon: 'leaf', image: '/images/research-green-wall.webp',
+    icon: 'leaf', image: imagePath('research-green-wall.webp'),
     alt: 'Representative green wall integrated into architecture',
   },
 ]
@@ -56,9 +58,9 @@ export const benefits: readonly Benefit[] = [
 ]
 
 export const projects: readonly Project[] = [
-  { title: 'Pilot Treatment Project', description: 'A replaceable project entry for future pilot treatment research and testing.', type: 'Pilot Research', status: 'Research', image: '/images/project-pilot-treatment.webp', alt: 'Representative pilot treatment research system' },
-  { title: 'Resource Recovery Study', description: 'A replaceable project entry for future resource recovery research.', type: 'Research Study', status: 'Testing', image: '/images/project-resource-recovery.webp', alt: 'Representative resource recovery research materials' },
-  { title: 'Green-Wall Integration Pilot', description: 'A replaceable project entry for future green-wall integration research.', type: 'Pilot Research', status: 'Research', image: '/images/project-green-wall.webp', alt: 'Representative green-wall pilot installation' },
+  { title: 'Pilot Treatment Project', description: 'A replaceable project entry for future pilot treatment research and testing.', type: 'Pilot Research', status: 'Research', image: imagePath('project-pilot-treatment.webp'), alt: 'Representative pilot treatment research system' },
+  { title: 'Resource Recovery Study', description: 'A replaceable project entry for future resource recovery research.', type: 'Research Study', status: 'Testing', image: imagePath('project-resource-recovery.webp'), alt: 'Representative resource recovery research materials' },
+  { title: 'Green-Wall Integration Pilot', description: 'A replaceable project entry for future green-wall integration research.', type: 'Pilot Research', status: 'Research', image: imagePath('project-green-wall.webp'), alt: 'Representative green-wall pilot installation' },
 ]
 
 export const collaborationTypes: readonly CollaborationType[] = [
