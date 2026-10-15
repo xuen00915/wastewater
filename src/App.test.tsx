@@ -1,37 +1,54 @@
 import { render, screen, within } from '@testing-library/react'
 import { App } from './App'
 
-describe('homepage composition', () => {
-  it('presents one primary story in the required section order', () => {
-    const { container } = render(<App />)
+const pages = [
+  ['/', 'Transforming Wastewater Into Resources for Greener Buildings'],
+  ['/services/', 'Treatment Capabilities for Connected Water Systems'],
+  ['/research/', 'Research Across Water, Resources and Living Systems'],
+  ['/projects/', 'Research Beyond the Laboratory'],
+  ['/collaborate/', 'Progress Through Shared Research'],
+  ['/career/', 'Build the Future of Environmental Research'],
+] as const
+
+function renderPath(pathname: string) {
+  window.history.replaceState({}, '', pathname)
+  return render(<App />)
+}
+
+describe('six-page site composition', () => {
+  it.each(pages)('maps %s to one unique page heading', (pathname, heading) => {
+    renderPath(pathname)
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
-    const titles = [...container.querySelectorAll('h2')].map((heading) => heading.textContent)
-    expect(titles).toEqual([
-      'Water Shouldn’t End After Treatment',
-      'From Wastewater to Greener Buildings',
-      'Three Research Areas. One Circular System.',
-      'Connecting Water Research With Living Systems',
-      'Research Designed for Real-World Application',
-      'Research Beyond the Laboratory',
-      'Research Works Better Through Collaboration',
-      'Let’s Build Better Water Systems Together',
-    ])
+    expect(screen.getByRole('heading', { level: 1, name: heading })).toBeInTheDocument()
   })
 
-  it('renders the complete data-driven research content', () => {
-    render(<App />)
+  it('keeps Home concise with particles and linked previews', () => {
+    const { container } = renderPath('/')
+    expect(container.querySelector('canvas')).toBeInTheDocument()
     expect(within(screen.getByTestId('research-areas')).getAllByRole('article')).toHaveLength(3)
-    expect(within(screen.getByTestId('benefits')).getAllByRole('article')).toHaveLength(4)
     expect(within(screen.getByTestId('projects')).getAllByRole('article')).toHaveLength(3)
     expect(within(screen.getByTestId('collaboration-types')).getAllByRole('article')).toHaveLength(3)
-    const projectRegion = screen.getByTestId('projects')
-    expect(within(projectRegion).getAllByText('Pilot Research')).toHaveLength(2)
-    expect(within(projectRegion).getAllByText('Research')).toHaveLength(2)
-    expect(screen.getByText(String(new Date().getFullYear()), { exact: false })).toBeInTheDocument()
+    expect(screen.queryByText('How Wastewater Treatment Works')).not.toBeInTheDocument()
+    expect(screen.queryByText('Opportunities will be published when available.')).not.toBeInTheDocument()
   })
 
-  it('does not invent organisation contact, location, client, or result details', () => {
-    const { container } = render(<App />)
-    expect(container).not.toHaveTextContent(/@|\+65|Singapore|client|percent|% saved/i)
+  it.each(pages.slice(1))('does not render Home particles on %s', (pathname) => {
+    const { container } = renderPath(pathname)
+    expect(container.querySelector('canvas')).not.toBeInTheDocument()
+  })
+
+  it('keeps project and career availability honest', () => {
+    renderPath('/projects/')
+    expect(screen.getAllByText('Project details coming soon')).toHaveLength(3)
+    expect(screen.queryByRole('link', { name: /view project/i })).not.toBeInTheDocument()
+
+    renderPath('/career/')
+    expect(screen.getByText('Opportunities will be published when available.')).toBeInTheDocument()
+  })
+
+  it.each(pages)('does not invent organisation or performance details on %s', (pathname) => {
+    const { container } = renderPath(pathname)
+    expect(container).not.toHaveTextContent(/\+65|Singapore|client logo|% saved|verified result|current vacancy/i)
+    expect(container.textContent).not.toMatch(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/i)
   })
 })

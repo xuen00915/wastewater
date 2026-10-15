@@ -2,6 +2,7 @@ import { ButtonLink } from './ui/ButtonLink'
 import { Floating3DParticles } from './ui/Floating3DParticles'
 import { Icon } from './ui/Icon'
 import { MediaPlaceholder } from './ui/MediaPlaceholder'
+import { pageHref } from '../site'
 
 const circularStages = [
   ['water', 'Treatment'], ['recovery', 'Recovery'], ['leaf', 'Reuse'], ['building', 'Green Infrastructure'],
@@ -18,8 +19,8 @@ export function Hero() {
           <h1>Transforming <em>Wastewater</em> Into <em>Resources</em> for <em>Greener Buildings</em></h1>
           <p className="hero__description">Advancing wastewater treatment, resource recovery and green-wall research as one connected circular system for more sustainable built environments.</p>
           <div className="hero__actions">
-            <ButtonLink href="#research">Explore Our Research</ButtonLink>
-            <ButtonLink href="#projects" variant="secondary">View Projects</ButtonLink>
+            <ButtonLink href={pageHref('research')}>Explore Our Research</ButtonLink>
+            <ButtonLink href={pageHref('projects')} variant="secondary">View Projects</ButtonLink>
           </div>
           <p className="hero__topics">Liquid Treatment <span>•</span> Resource Recovery <span>•</span> Green Infrastructure</p>
         </div>

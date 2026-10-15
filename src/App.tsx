@@ -1,18 +1,26 @@
-import { BenefitsSection } from './components/BenefitsSection'
-import { ChallengeSection } from './components/ChallengeSection'
-import { CollaborationSection } from './components/CollaborationSection'
-import { EditorialFeature } from './components/EditorialFeature'
-import { FinalCta } from './components/FinalCta'
-import { Hero } from './components/Hero'
-import { ProcessSection } from './components/ProcessSection'
-import { ProjectsSection } from './components/ProjectsSection'
-import { ResearchPillars } from './components/ResearchPillars'
+import type { ComponentType } from 'react'
 import { SiteShell } from './components/SiteShell'
-import { resolvePageId } from './site'
+import { CareerPage } from './pages/CareerPage'
+import { CollaboratePage } from './pages/CollaboratePage'
+import { HomePage } from './pages/HomePage'
+import { ProjectsPage } from './pages/ProjectsPage'
+import { ResearchPage } from './pages/ResearchPage'
+import { ServicesPage } from './pages/ServicesPage'
+import { resolvePageId, type PageId } from './site'
 import './components/interactive-sections.css'
 import './components/content-sections.css'
 
+const pageComponents: Record<PageId, ComponentType> = {
+  home: HomePage,
+  services: ServicesPage,
+  research: ResearchPage,
+  projects: ProjectsPage,
+  collaborate: CollaboratePage,
+  career: CareerPage,
+}
+
 export function App() {
   const currentPage = resolvePageId(typeof window === 'undefined' ? '/' : window.location.pathname)
-  return <SiteShell currentPage={currentPage}><Hero /><ChallengeSection /><ProcessSection /><ResearchPillars /><EditorialFeature /><BenefitsSection /><ProjectsSection /><CollaborationSection /><FinalCta /></SiteShell>
+  const Page = pageComponents[currentPage]
+  return <SiteShell currentPage={currentPage}><Page /></SiteShell>
 }

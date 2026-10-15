@@ -7,6 +7,9 @@ export type ResearchArea = { title: string; description: string; link: string; i
 export type Benefit = { number: string; title: string; description: string }
 export type Project = { title: string; description: string; type: string; status: string; image: string; alt: string }
 export type CollaborationType = { title: string; description: string; icon: IconName }
+export type ServiceCapability = { number: string; title: string; description: string; icon: IconName }
+export type ResearchTheme = { number: string; title: string; description: string; icon: IconName }
+export type CareerArea = { title: string; description: string; icon: IconName }
 
 const imagePath = (filename: string) => `${import.meta.env.BASE_URL}images/${filename}`
 
@@ -64,10 +67,36 @@ export const projects: readonly Project[] = [
   { title: 'Green-Wall Integration Pilot', description: 'A replaceable project entry for future green-wall integration research.', type: 'Pilot Research', status: 'Research', image: imagePath('project-green-wall.webp'), alt: 'Representative green-wall pilot installation' },
 ]
 
-export const collaborationTypes: readonly CollaborationType[] = [
+export const collaborationPathways: readonly CollaborationType[] = [
   { title: 'Industry Partners', description: 'Explore practical applications and industry challenges', icon: 'industry' },
   { title: 'Research Partners', description: 'Collaborate on research, testing and knowledge development', icon: 'flask' },
   { title: 'Pilot Sites', description: 'Explore opportunities for real-world trials and monitoring', icon: 'site' },
+]
+
+export const collaborationTypes = collaborationPathways
+
+export const services: readonly ServiceCapability[] = [
+  { number: '01', title: 'Liquid Treatment', description: 'Develop and evaluate approaches for wastewater treatment, water quality and treatment performance.', icon: 'water' },
+  { number: '02', title: 'Solid Treatment', description: 'Study solids management and treatment as part of the wider water system.', icon: 'solids' },
+  { number: '03', title: 'Pilot Testing', description: 'Translate research concepts into pilot-scale systems for structured evaluation.', icon: 'treatment' },
+  { number: '04', title: 'Monitoring', description: 'Use measurements and observation to understand system behavior and guide learning.', icon: 'flask' },
+  { number: '05', title: 'Resource Recovery', description: 'Explore useful resources within treated liquid and solid streams.', icon: 'recovery' },
+  { number: '06', title: 'Green Integration', description: 'Connect treated outputs with planted systems and greener building environments.', icon: 'leaf' },
+]
+
+export const researchThemes: readonly ResearchTheme[] = [
+  { number: '01', title: 'Water Quality', description: 'Study water characteristics, treatment requirements and indicators of treatment performance.', icon: 'water' },
+  { number: '02', title: 'Treatment Processes', description: 'Develop and compare liquid and solids treatment approaches at research and pilot scale.', icon: 'treatment' },
+  { number: '03', title: 'Resource Pathways', description: 'Investigate how treated streams may connect with recovery and responsible reuse.', icon: 'recovery' },
+  { number: '04', title: 'Living Systems', description: 'Explore relationships between treated resources, planted systems and the built environment.', icon: 'leaf' },
+  { number: '05', title: 'Monitoring & Learning', description: 'Use measurement to understand performance, refine questions and support continued research.', icon: 'flask' },
+]
+
+export const careerAreas: readonly CareerArea[] = [
+  { title: 'Research', description: 'Investigating practical questions across water treatment, resource recovery and environmental systems.', icon: 'flask' },
+  { title: 'Pilot Systems', description: 'Supporting the design, operation and learning around pilot-scale treatment installations.', icon: 'treatment' },
+  { title: 'Monitoring', description: 'Collecting and interpreting measurements that help research teams understand system performance.', icon: 'water' },
+  { title: 'Green Infrastructure', description: 'Connecting planted systems, water research and sustainable building applications.', icon: 'leaf' },
 ]
 
 export const footerGroups = [
