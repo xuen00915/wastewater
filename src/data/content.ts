@@ -10,7 +10,7 @@ export type CollaborationType = { title: string; description: string; icon: Icon
 export type ServiceCapability = { number: string; title: string; description: string; icon: IconName }
 export type ResearchTheme = { number: string; title: string; description: string; icon: IconName }
 export type CareerArea = { title: string; description: string; icon: IconName }
-export type TreatmentStage = { id: string; number: string; title: string; summary: string; detail: string; icon: IconName }
+export type TreatmentStage = { id: string; number: string; title: string; summary: string; detail: string; icon: IconName; hotspot: { x: number; y: number } }
 
 const imagePath = (filename: string) => `${import.meta.env.BASE_URL}images/${filename}`
 
@@ -101,11 +101,12 @@ export const careerAreas: readonly CareerArea[] = [
 ]
 
 export const treatmentStages: readonly TreatmentStage[] = [
-  { id: 'inflow', number: '01', title: 'Wastewater enters', summary: 'Characterise the incoming water', detail: 'The pathway begins by understanding incoming water characteristics and the treatment questions they create.', icon: 'water' },
-  { id: 'treatment', number: '02', title: 'Treatment', summary: 'Evaluate liquid and solids approaches', detail: 'Liquid and solid streams move through treatment approaches selected for the research question and pilot context.', icon: 'treatment' },
-  { id: 'monitoring', number: '03', title: 'Monitoring', summary: 'Observe performance and change', detail: 'Measurements and observations help researchers understand system behavior and guide continued testing.', icon: 'flask' },
-  { id: 'recovery', number: '04', title: 'Resource recovery', summary: 'Explore value within treated streams', detail: 'Research can explore whether useful resources within treated liquid or solid streams are suitable for further study.', icon: 'recovery' },
-  { id: 'reuse', number: '05', title: 'Reuse & green wall', summary: 'Connect outputs with living systems', detail: 'Treated outputs can be studied in relation to reuse, planted systems and greener building applications.', icon: 'leaf' },
+  { id: 'influent', number: '01', title: 'Influent', summary: 'Understand the incoming wastewater', detail: 'The pathway begins by characterising incoming wastewater and defining the treatment questions for the research or pilot context.', icon: 'water', hotspot: { x: 9, y: 34 } },
+  { id: 'screening', number: '02', title: 'Screening & settling', summary: 'Remove larger material and balance flow', detail: 'Preliminary stages can separate larger solids and create a more consistent stream for the treatment steps that follow.', icon: 'solids', hotspot: { x: 25, y: 39 } },
+  { id: 'biological', number: '03', title: 'Biological treatment', summary: 'Study treatment within active tanks', detail: 'Biological treatment approaches can be evaluated to understand how the water responds under controlled research conditions.', icon: 'treatment', hotspot: { x: 48, y: 42 } },
+  { id: 'separation', number: '04', title: 'Separation & monitoring', summary: 'Separate streams and observe performance', detail: 'Liquid and solid streams are separated while measurements and observations help researchers understand system performance.', icon: 'flask', hotspot: { x: 66, y: 29 } },
+  { id: 'recovery', number: '05', title: 'Resource recovery', summary: 'Explore value within treated streams', detail: 'Research can explore whether useful resources within treated liquid or solid streams are suitable for further study.', icon: 'recovery', hotspot: { x: 72, y: 67 } },
+  { id: 'reuse', number: '06', title: 'Reuse & green wall', summary: 'Connect treated outputs with living systems', detail: 'Treated outputs can be studied in relation to reuse, planted systems and greener building applications.', icon: 'leaf', hotspot: { x: 91, y: 45 } },
 ]
 
 export const footerGroups = [

@@ -3,16 +3,18 @@ import userEvent from '@testing-library/user-event'
 import { TreatmentPathway } from './TreatmentPathway'
 
 describe('TreatmentPathway', () => {
-  it('presents five ordered, selectable treatment stages', () => {
+  it('presents six ordered, selectable treatment zones on the island graphic', () => {
     render(<TreatmentPathway />)
+    expect(screen.getByRole('img', { name: /isometric wastewater treatment island/i })).toHaveAttribute('src', '/images/treatment-island.webp')
     const tabs = screen.getAllByRole('tab')
-    expect(tabs).toHaveLength(5)
+    expect(tabs).toHaveLength(6)
     expect(tabs.map((tab) => tab.getAttribute('aria-label'))).toEqual([
-      '01 Wastewater enters',
-      '02 Treatment',
-      '03 Monitoring',
-      '04 Resource recovery',
-      '05 Reuse & green wall',
+      '01 Influent',
+      '02 Screening & settling',
+      '03 Biological treatment',
+      '04 Separation & monitoring',
+      '05 Resource recovery',
+      '06 Reuse & green wall',
     ])
     expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
     expect(tabs.slice(1).every((tab) => tab.getAttribute('aria-selected') === 'false')).toBe(true)
@@ -22,8 +24,8 @@ describe('TreatmentPathway', () => {
   it('updates selection and the adjacent explanation after a click', async () => {
     const user = userEvent.setup()
     render(<TreatmentPathway />)
-    await user.click(screen.getByRole('tab', { name: /04 resource recovery/i }))
-    expect(screen.getByRole('tab', { name: /04 resource recovery/i })).toHaveAttribute('aria-selected', 'true')
+    await user.click(screen.getByRole('tab', { name: /05 resource recovery/i }))
+    expect(screen.getByRole('tab', { name: /05 resource recovery/i })).toHaveAttribute('aria-selected', 'true')
     const panel = screen.getByRole('tabpanel')
     expect(within(panel).getByRole('heading', { name: 'Resource recovery' })).toBeInTheDocument()
     expect(panel).toHaveTextContent('useful resources')
@@ -39,8 +41,8 @@ describe('TreatmentPathway', () => {
     fireEvent.keyDown(tabs[1], { key: 'ArrowLeft' })
     expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
     fireEvent.keyDown(tabs[0], { key: 'ArrowUp' })
-    expect(tabs[4]).toHaveAttribute('aria-selected', 'true')
-    fireEvent.keyDown(tabs[4], { key: 'ArrowDown' })
+    expect(tabs[5]).toHaveAttribute('aria-selected', 'true')
+    fireEvent.keyDown(tabs[5], { key: 'ArrowDown' })
     expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
   })
 
@@ -48,8 +50,8 @@ describe('TreatmentPathway', () => {
     render(<TreatmentPathway />)
     const tabs = screen.getAllByRole('tab')
     fireEvent.keyDown(tabs[0], { key: 'End' })
-    expect(tabs[4]).toHaveAttribute('aria-selected', 'true')
-    fireEvent.keyDown(tabs[4], { key: 'Home' })
+    expect(tabs[5]).toHaveAttribute('aria-selected', 'true')
+    fireEvent.keyDown(tabs[5], { key: 'Home' })
     expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
   })
 

@@ -14,3 +14,4 @@ All source photographs were downloaded from Unsplash and are free to use under t
 | `project-pilot-treatment.webp` | [Ivan Bandura](https://unsplash.com/photos/6wSevhW1Dzc) | Representative pilot treatment setting |
 | `project-resource-recovery.webp` | [ThisisEngineering](https://unsplash.com/photos/XDNVBHF-pr0) | Representative research activity |
 | `project-green-wall.webp` | [iwin](https://unsplash.com/photos/YQ6iyhleqKs) | Representative green-wall installation |
+| `treatment-island.webp` | Original AI-generated conceptual illustration | Generic isometric wastewater-treatment workflow; not a real site or engineering design |
