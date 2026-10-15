@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "src/components/interactive-sections.css"
+        ],
+        "createdAt": "2026-10-15T02:02:31.840Z",
+        "reason": "False positive: the mobile navigation transition list contains only opacity, transform, and visibility; max-height and padding are static declarations."
+      }
+    ]
+  }
+}
