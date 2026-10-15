@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-10-15T02:02:31.840Z",
         "reason": "False positive: the mobile navigation transition list contains only opacity, transform, and visibility; max-height and padding are static declarations."
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/components/treatment-pathway.css"
+        ],
+        "createdAt": "2026-10-15T04:00:09.596Z",
+        "reason": "Agent: bottom pseudo-element is the functional selected-stage progress indicator driven by scaleX(--treatment-progress), not a decorative card accent border"
       }
     ]
   }
