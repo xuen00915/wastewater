@@ -15,7 +15,7 @@ export function InternalPageHero({ title, description, image, alt }: InternalPag
           <h1>{title}</h1>
           <p>{description}</p>
         </div>
-        <MediaPlaceholder src={image} alt={alt} requiredFilename={image} loading="eager" fetchPriority="high" />
+        <MediaPlaceholder className="internal-hero__media" src={image} alt={alt} requiredFilename={image} loading="eager" fetchPriority="high" />
       </div>
     </section>
   )
