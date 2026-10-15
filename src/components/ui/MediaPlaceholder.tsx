@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Icon } from './Icon'
+import { Icon, type IconName } from './Icon'
 
 type MediaPlaceholderProps = {
   src: string
   alt: string
   requiredFilename?: string
   className?: string
-  icon?: 'water' | 'leaf' | 'flask' | 'solids'
+  icon?: IconName
 }
 
 export function MediaPlaceholder({ src, alt, requiredFilename = src, className = '', icon = 'water' }: MediaPlaceholderProps) {

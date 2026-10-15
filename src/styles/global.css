@@ -1,3 +1,12 @@
 body {
   overflow-x: hidden;
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
+
+::selection { color: var(--navy-deep); background: var(--aqua); }
+main { overflow: clip; }
+h1, h2, h3, p { overflow-wrap: break-word; }
+section[id] { scroll-margin-top: 82px; }
