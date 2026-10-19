@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { App } from './App'
 
 const pages = [
@@ -23,14 +23,24 @@ describe('seven-page site composition', () => {
     expect(screen.getByRole('heading', { level: 1, name: heading })).toBeInTheDocument()
   })
 
-  it('keeps Home concise with particles and linked previews', () => {
+  it('keeps Home concise with one continuous water story and linked previews', () => {
     const { container } = renderPath('/')
-    expect(container.querySelector('canvas')).toBeInTheDocument()
+    expect(container.querySelector('canvas.water-ripple-trail')).toBeInTheDocument()
+    expect(container.querySelector('.water-story + .challenge')).toBeInTheDocument()
+    expect(container.querySelector('.portal-transition-scene')).not.toBeInTheDocument()
     expect(within(screen.getByTestId('research-areas')).getAllByRole('article')).toHaveLength(3)
     expect(within(screen.getByTestId('projects')).getAllByRole('article')).toHaveLength(3)
     expect(within(screen.getByTestId('collaboration-types')).getAllByRole('article')).toHaveLength(3)
     expect(screen.queryByText('How Wastewater Treatment Works')).not.toBeInTheDocument()
     expect(screen.queryByText('Opportunities will be published when available.')).not.toBeInTheDocument()
+  })
+
+  it('retains the global page-navigation water transition on Home', () => {
+    const { container } = renderPath('/')
+
+    fireEvent.click(screen.getByRole('link', { name: 'Explore Our Research' }))
+
+    expect(container.querySelector('.page-water-transition')).toBeInTheDocument()
   })
 
   it.each(pages.slice(1))('does not render Home particles on %s', (pathname) => {

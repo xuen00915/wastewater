@@ -43,12 +43,19 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
       frameId = null
       const values = deriveWaterStoryValues(reducedMotion ? 0 : getProgress(story))
       story.style.setProperty('--water-progress', String(values.progress))
+      story.style.setProperty('--portal-progress', String(values.portalProgress))
       story.style.setProperty('--portal-scale', String(values.portalScale))
       story.style.setProperty('--copy-opacity', String(values.copyOpacity))
+      story.style.setProperty('--copy-shift-x', `${values.progress * -10}px`)
+      story.style.setProperty('--copy-shift-y', `${values.progress * -10}px`)
       story.style.setProperty('--immersion-progress', String(values.immersionProgress))
       story.style.setProperty('--exit-progress', String(values.exitProgress))
       story.style.setProperty('--waterline-percent', String(values.waterlinePercent))
+      story.style.setProperty('--waterline-position', `${values.waterlinePercent}%`)
       story.style.setProperty('--image-scale', String(values.imageScale))
+      story.style.setProperty('--portal-stage-scale', String(1 + values.portalProgress * 0.72))
+      story.style.setProperty('--portal-shift-x', `${values.portalProgress * -18}vw`)
+      story.style.setProperty('--portal-shift-y', `${values.portalProgress * 2}vh`)
       story.querySelector('[data-water-mask]')?.setAttribute('d', interpolatePortalPath(values.progress))
     }
 
