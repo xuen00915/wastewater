@@ -32,9 +32,88 @@ section[id],
 #career-opportunities,
 #contact-availability { scroll-margin-top: 82px; }
 
+
+.page-water-transition {
+  position: fixed;
+  z-index: 49;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.page-water-transition__wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at var(--water-transition-x) var(--water-transition-y),
+      rgb(255 255 255 / 12%) 0,
+      rgb(45 212 191 / 10%) 14%,
+      rgb(14 165 233 / 8%) 28%,
+      transparent 58%
+    );
+  opacity: 0;
+  animation: page-water-wash 360ms cubic-bezier(.2,.7,.2,1) both;
+}
+
+.page-water-transition__ring {
+  position: absolute;
+  top: var(--water-transition-y);
+  left: var(--water-transition-x);
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%) scale(.4);
+  border: 1px solid rgb(14 165 233 / 36%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 18px rgb(14 165 233 / 10%),
+    inset 0 0 14px rgb(255 255 255 / 16%);
+  opacity: 0;
+  animation: page-water-ring 360ms cubic-bezier(.16,.76,.26,1) both;
+}
+
+.page-water-transition__ring--two {
+  border-color: rgb(45 212 191 / 24%);
+  animation-delay: 38ms;
+}
+
+.page-water-transition__ring--three {
+  border-color: rgb(255 255 255 / 26%);
+  animation-delay: 76ms;
+}
+
+.water-page-leaving main {
+  transform: translateY(3px);
+  opacity: .78;
+  transition: opacity 300ms ease, transform 360ms cubic-bezier(.2,.7,.2,1);
+}
+
+@keyframes page-water-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(.4);
+    opacity: 0;
+  }
+  14% {
+    opacity: .78;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(180);
+    opacity: 0;
+  }
+}
+
+@keyframes page-water-wash {
+  0% { opacity: 0; }
+  34% { opacity: .86; }
+  100% { opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-image-pair(*),
   ::view-transition-old(*),
   ::view-transition-new(*) { animation: none !important; }
+  .page-water-transition { display: none; }
+  .water-page-leaving main { transform: none; opacity: 1; transition: none; }
 }
