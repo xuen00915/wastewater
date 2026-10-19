@@ -134,6 +134,7 @@ describe('WaterStoryScroll', () => {
 
     const story = container.querySelector('.water-story')
     expect(story).toHaveAttribute('data-reduced-motion', 'true')
+    expect(story).toHaveAttribute('data-static-story', 'true')
     expect(story).toHaveStyle('--water-progress: 0')
     expect(addWindowListener).not.toHaveBeenCalledWith('scroll', expect.any(Function), expect.anything())
   })

@@ -28,6 +28,7 @@ describe('seven-page site composition', () => {
     expect(container.querySelector('canvas.water-ripple-trail')).toBeInTheDocument()
     expect(container.querySelector('.water-story + .challenge')).toBeInTheDocument()
     expect(container.querySelector('.portal-transition-scene')).not.toBeInTheDocument()
+    expect(container.querySelector('.hero-water-effect')).not.toBeInTheDocument()
     expect(within(screen.getByTestId('research-areas')).getAllByRole('article')).toHaveLength(3)
     expect(within(screen.getByTestId('projects')).getAllByRole('article')).toHaveLength(3)
     expect(within(screen.getByTestId('collaboration-types')).getAllByRole('article')).toHaveLength(3)

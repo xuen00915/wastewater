@@ -81,6 +81,7 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
     const handleMotionChange = (event: MediaQueryListEvent) => {
       reducedMotion = event.matches
       story.dataset.reducedMotion = String(reducedMotion)
+      story.dataset.staticStory = String(reducedMotion)
       if (reducedMotion) detachScrollListeners()
       else attachScrollListeners()
       schedulePaint()
@@ -93,6 +94,7 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
 
     story.dataset.active = 'true'
     story.dataset.reducedMotion = String(reducedMotion)
+    story.dataset.staticStory = String(reducedMotion)
     attachScrollListeners()
     document.addEventListener('visibilitychange', handleVisibilityChange)
 
