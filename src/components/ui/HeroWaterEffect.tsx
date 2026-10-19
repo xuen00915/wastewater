@@ -32,6 +32,7 @@ export function HeroWaterEffect() {
     const visual = root?.parentElement
 
     if (!root || !canvas || !context || !visual) return
+    const ctx = context
 
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     const ripples: Ripple[] = []
@@ -52,7 +53,7 @@ export function HeroWaterEffect() {
 
       canvas.width = Math.round(width * pixelRatio)
       canvas.height = Math.round(height * pixelRatio)
-      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
     }
 
     const drawRipple = (ripple: Ripple) => {
@@ -65,26 +66,26 @@ export function HeroWaterEffect() {
         if (delayed <= 0) continue
 
         const radius = 10 + delayed * (68 + ring * 13)
-        context.globalAlpha = alpha * (0.34 - ring * 0.07)
-        context.strokeStyle = ring === 1 ? 'rgb(45, 212, 191)' : 'rgb(14, 165, 233)'
-        context.lineWidth = Math.max(0.65, 1.35 - progress * 0.55)
-        context.beginPath()
-        context.ellipse(ripple.x, ripple.y, radius, radius * 0.34, 0, 0, Math.PI * 2)
-        context.stroke()
+        ctx.globalAlpha = alpha * (0.34 - ring * 0.07)
+        ctx.strokeStyle = ring === 1 ? 'rgb(45, 212, 191)' : 'rgb(14, 165, 233)'
+        ctx.lineWidth = Math.max(0.65, 1.35 - progress * 0.55)
+        ctx.beginPath()
+        ctx.ellipse(ripple.x, ripple.y, radius, radius * 0.34, 0, 0, Math.PI * 2)
+        ctx.stroke()
       }
 
-      context.globalAlpha = alpha * 0.18
-      context.fillStyle = 'rgb(255, 255, 255)'
-      context.beginPath()
-      context.ellipse(ripple.x, ripple.y, 6 + eased * 16, 2 + eased * 4.5, 0, 0, Math.PI * 2)
-      context.fill()
+      ctx.globalAlpha = alpha * 0.18
+      ctx.fillStyle = 'rgb(255, 255, 255)'
+      ctx.beginPath()
+      ctx.ellipse(ripple.x, ripple.y, 6 + eased * 16, 2 + eased * 4.5, 0, 0, Math.PI * 2)
+      ctx.fill()
     }
 
     const drawDrop = (drop: FallingDrop) => {
       const progress = Math.min(1, drop.age / drop.life)
       const y = drop.startY + (drop.impactY - drop.startY) * easeIn(progress)
       const radius = 5.5 + progress * 1.5
-      const gradient = context.createRadialGradient(
+      const gradient = ctx.createRadialGradient(
         drop.x - radius * 0.35,
         y - radius * 0.4,
         radius * 0.15,
@@ -98,11 +99,11 @@ export function HeroWaterEffect() {
       gradient.addColorStop(0.7, 'rgba(14,165,233,.34)')
       gradient.addColorStop(1, 'rgba(8,47,73,.04)')
 
-      context.globalAlpha = 0.96
-      context.fillStyle = gradient
-      context.beginPath()
-      context.moveTo(drop.x, y - radius * 1.5)
-      context.bezierCurveTo(
+      ctx.globalAlpha = 0.96
+      ctx.fillStyle = gradient
+      ctx.beginPath()
+      ctx.moveTo(drop.x, y - radius * 1.5)
+      ctx.bezierCurveTo(
         drop.x + radius * 0.95,
         y - radius * 0.35,
         drop.x + radius * 0.85,
@@ -110,7 +111,7 @@ export function HeroWaterEffect() {
         drop.x,
         y + radius * 1.08,
       )
-      context.bezierCurveTo(
+      ctx.bezierCurveTo(
         drop.x - radius * 0.85,
         y + radius * 0.95,
         drop.x - radius * 0.95,
@@ -118,7 +119,7 @@ export function HeroWaterEffect() {
         drop.x,
         y - radius * 1.5,
       )
-      context.fill()
+      ctx.fill()
     }
 
     const startAnimation = () => {
@@ -164,7 +165,7 @@ export function HeroWaterEffect() {
       const elapsed = previousFrame === 0 ? 16 : Math.min(34, timestamp - previousFrame)
       previousFrame = timestamp
 
-      context.clearRect(0, 0, width, height)
+      ctx.clearRect(0, 0, width, height)
 
       for (let index = drops.length - 1; index >= 0; index -= 1) {
         const drop = drops[index]
@@ -189,7 +190,7 @@ export function HeroWaterEffect() {
         }
       }
 
-      context.globalAlpha = 1
+      ctx.globalAlpha = 1
 
       if (inView && !document.hidden && !motionQuery.matches && (ripples.length > 0 || drops.length > 0)) {
         frameId = requestAnimationFrame(tick)
@@ -227,7 +228,7 @@ export function HeroWaterEffect() {
 
       ripples.length = 0
       drops.length = 0
-      context.clearRect(0, 0, width, height)
+      ctx.clearRect(0, 0, width, height)
       if (frameId !== null) cancelAnimationFrame(frameId)
       frameId = null
       previousFrame = 0
