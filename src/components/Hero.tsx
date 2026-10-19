@@ -12,7 +12,7 @@ const circularStages = [
 export function Hero() {
   return (
     <section className="hero" id="home">
-      <Floating3DParticles className="hero__particles" />
+      <Floating3DParticles className="hero__particles" quantity={72} size={3.2} opacity={0.28} drift={0.18} />
       <div className="water-contours" aria-hidden="true"><i /><i /><i /></div>
       <div className="hero__inner">
         <div className="hero__copy">
