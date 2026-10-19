@@ -31,7 +31,16 @@
 .hero__visual { position: relative; align-self: stretch; min-height: 610px; }
 .hero__visual > .media { height: 100%; border-radius: var(--radius-media) 0 var(--radius-media) var(--radius-media); }
 .hero__visual > .media::after { position: absolute; inset: 0; border: 1px solid rgb(255 255 255 / 30%); border-radius: inherit; pointer-events: none; content: ''; }
-.circular-card { position: absolute; bottom: 42px; left: -72px; width: min(520px, 76%); padding: 24px 28px; border: 1px solid rgb(8 47 73 / 8%); border-radius: 18px; background: rgb(255 255 255 / 96%); box-shadow: var(--shadow-soft); }
+.hero__visual { isolation: isolate; }
+.hero__visual > .media { position: relative; z-index: 0; }
+.hero-water-effect { position: absolute; z-index: 2; inset: 0; overflow: hidden; pointer-events: none; border-radius: var(--radius-media) 0 var(--radius-media) var(--radius-media); }
+.hero-water-effect__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-water-effect__feature-drop { position: absolute; top: 11%; left: 9%; width: clamp(86px, 9.5vw, 128px); aspect-ratio: .86; border: 1px solid rgb(255 255 255 / 48%); border-radius: 62% 38% 64% 36% / 72% 52% 48% 28%; background: linear-gradient(145deg, rgb(255 255 255 / 38%) 4%, rgb(176 231 247 / 22%) 36%, rgb(14 165 233 / 16%) 70%, rgb(6 36 58 / 10%) 100%); box-shadow: inset 14px 16px 28px rgb(255 255 255 / 22%), inset -12px -16px 24px rgb(8 47 73 / 11%), 0 18px 36px rgb(6 36 58 / 13%); backdrop-filter: blur(2.5px) saturate(1.12); transform: rotate(12deg); opacity: .9; animation: hero-water-float 6.5s ease-in-out infinite; }
+.hero-water-effect__feature-drop::after { position: absolute; right: 13%; bottom: 12%; width: 34%; height: 18%; border-radius: 50%; background: rgb(8 47 73 / 10%); filter: blur(8px); content: ''; }
+.hero-water-effect__feature-highlight { position: absolute; top: 15%; left: 21%; width: 24%; height: 31%; transform: rotate(-18deg); border-radius: 50%; background: linear-gradient(160deg, rgb(255 255 255 / 88%), rgb(255 255 255 / 7%)); filter: blur(.4px); }
+.hero-water-effect__surface { position: absolute; right: 8%; bottom: 18%; left: 14%; height: 1px; background: linear-gradient(90deg, transparent, rgb(255 255 255 / 58%) 36%, rgb(45 212 191 / 46%) 58%, transparent); box-shadow: 0 0 22px rgb(14 165 233 / 26%); opacity: .74; }
+@keyframes hero-water-float { 0%,100% { transform: translate3d(0,0,0) rotate(12deg); } 50% { transform: translate3d(0,6px,0) rotate(14deg); } }
+.circular-card { position: absolute; z-index: 3; bottom: 42px; left: -72px; width: min(520px, 76%); padding: 24px 28px; border: 1px solid rgb(8 47 73 / 8%); border-radius: 18px; background: rgb(255 255 255 / 96%); box-shadow: var(--shadow-soft); }
 .circular-card > p { margin: 0 0 16px; color: var(--navy); font-size: .68rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
 .circular-card__flow { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
 .circular-card__item { position: relative; display: grid; min-width: 58px; justify-items: center; gap: 7px; color: var(--navy); text-align: center; }
@@ -80,6 +89,7 @@
   .hero__inner { grid-template-columns: .95fr 1.05fr; gap: 32px; }
   .hero h1 { font-size: clamp(3rem, 5.4vw, 4rem); }
   .circular-card { left: -30px; }
+  .hero-water-effect__feature-drop { top: 9%; left: 7%; width: 96px; }
 }
 
 @media (max-width: 900px) {
@@ -98,6 +108,7 @@
   .hero__inner { min-height: auto; grid-template-columns: 1fr; }
   .hero__copy { max-width: 690px; padding-bottom: 16px; }
   .hero__visual { min-height: 570px; }
+  .hero-water-effect__feature-drop { top: 8%; left: 6%; width: 86px; }
   .circular-card { left: 24px; }
   .challenge__grid { grid-template-columns: 1fr; gap: 44px; }
   .process__flow { margin-top: 58px; grid-template-columns: 1fr; gap: 0; }
@@ -117,6 +128,8 @@
   .hero__actions { display: grid; grid-template-columns: 1fr; }
   .hero__topics { font-size: .68rem; }
   .hero__visual { min-height: 470px; }
+  .hero-water-effect__feature-drop { top: 7%; left: 6%; width: 66px; }
+  .hero-water-effect__surface { right: 6%; bottom: 21%; left: 8%; }
   .circular-card { right: 14px; bottom: 18px; left: 14px; width: auto; padding: 18px; }
   .circular-card__item small { font-size: .56rem; }
   .circular-card__arrow { right: -11px; }
@@ -127,4 +140,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .js .hero h1,.js .hero__description,.js .hero__actions,.js .hero__topics,.js .hero__visual{animation:none}
+  .hero-water-effect__feature-drop { animation: none; }
 }

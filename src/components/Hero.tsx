@@ -2,6 +2,7 @@ import { ButtonLink } from './ui/ButtonLink'
 import { Floating3DParticles } from './ui/Floating3DParticles'
 import { Icon } from './ui/Icon'
 import { MediaPlaceholder } from './ui/MediaPlaceholder'
+import { HeroWaterEffect } from './ui/HeroWaterEffect'
 import { pageHref } from '../site'
 
 const circularStages = [
@@ -11,7 +12,7 @@ const circularStages = [
 export function Hero() {
   return (
     <section className="hero" id="home">
-      <Floating3DParticles className="hero__particles" />
+      <Floating3DParticles className="hero__particles" quantity={72} size={3.2} opacity={0.28} drift={0.18} />
       <div className="water-contours" aria-hidden="true"><i /><i /><i /></div>
       <div className="hero__inner">
         <div className="hero__copy">
@@ -25,6 +26,7 @@ export function Hero() {
         </div>
         <div className="hero__visual">
           <MediaPlaceholder src={`${import.meta.env.BASE_URL}images/home-hero-wastewater.webp`} alt="Representative pilot wastewater treatment system integrated with vegetation" requiredFilename="/images/home-hero-wastewater.webp" loading="eager" fetchPriority="high" />
+          <HeroWaterEffect />
           <div className="circular-card">
             <p>Circular Water System</p>
             <div className="circular-card__flow">
