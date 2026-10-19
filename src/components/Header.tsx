@@ -30,7 +30,7 @@ export function Header({ currentPage }: { currentPage: PageId }) {
   const closeMenu = () => setMenuOpen(false)
 
   return (
-    <header className={`site-header${scrolled ? ' site-header--scrolled' : ''}`}>
+    <header className={`site-header${currentPage === 'home' ? ' site-header--home' : ''}${scrolled ? ' site-header--scrolled' : ''}`}>
       <div className="site-header__inner">
         <a className="wordmark" href={pageHref('home')} aria-label="Wastewater Treatment home">
           <span className="wordmark__mark" aria-hidden="true"><i /><i /></span>

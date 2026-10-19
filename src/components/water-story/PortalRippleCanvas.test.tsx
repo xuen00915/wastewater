@@ -20,9 +20,10 @@ function mockMotionPreference(matches = false, legacy = false) {
   return { addEventListener, removeEventListener, addListener, removeListener }
 }
 
-function mockCanvas() {
+function mockCanvas(pathContains = true) {
   const ellipse = vi.fn()
   const setTransform = vi.fn()
+  const isPointInPath = vi.fn(() => pathContains)
   const context = {
     beginPath: vi.fn(),
     bezierCurveTo: vi.fn(),
@@ -33,13 +34,16 @@ function mockCanvas() {
     fillStyle: '',
     globalAlpha: 1,
     lineWidth: 1,
+    isPointInPath,
     moveTo: vi.fn(),
+    restore: vi.fn(),
+    save: vi.fn(),
     setTransform,
     stroke: vi.fn(),
     strokeStyle: '',
   } as unknown as CanvasRenderingContext2D
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(context)
-  return { ellipse, setTransform }
+  return { ellipse, isPointInPath, setTransform }
 }
 
 function mockAnimationFrame() {
@@ -62,16 +66,26 @@ function mockAnimationFrame() {
   }
 }
 
-function renderCanvas(active = true) {
+function renderCanvas(active = true, maskContains: boolean | null = true) {
   const rendered = render(
     <section className="water-story" data-active={String(active)}>
       <div className="living-water-portal__interaction">
+        <svg viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice">
+          <path data-water-mask d="M 100 100 H 900 V 600 H 100 Z" />
+        </svg>
         <PortalRippleCanvas />
       </div>
     </section>,
   )
   const interaction = rendered.container.querySelector<HTMLElement>('.living-water-portal__interaction')!
-  vi.spyOn(interaction, 'getBoundingClientRect').mockReturnValue({
+  const mask = rendered.container.querySelector<SVGGeometryElement>('[data-water-mask]')!
+  const isPointInFill = vi.fn(() => maskContains ?? false)
+  if (maskContains !== null) {
+    Object.defineProperty(mask, 'isPointInFill', { configurable: true, value: isPointInFill })
+  } else {
+    Object.defineProperty(mask, 'isPointInFill', { configurable: true, value: undefined })
+  }
+  let rect = {
     left: 20,
     top: 30,
     width: 800,
@@ -81,9 +95,17 @@ function renderCanvas(active = true) {
     x: 20,
     y: 30,
     toJSON: () => ({}),
-  })
+  }
+  vi.spyOn(interaction, 'getBoundingClientRect').mockImplementation(() => rect)
   fireEvent.resize(window)
-  return { ...rendered, interaction }
+  return {
+    ...rendered,
+    interaction,
+    isPointInFill,
+    setRect(nextRect: Partial<DOMRect>) {
+      rect = { ...rect, ...nextRect }
+    },
+  }
 }
 
 afterEach(() => {
@@ -112,11 +134,37 @@ describe('PortalRippleCanvas', () => {
     mockMotionPreference()
     mockCanvas()
     const frames = mockAnimationFrame()
-    const { interaction } = renderCanvas()
+    const { interaction, isPointInFill } = renderCanvas(true, false)
 
-    fireEvent.pointerDown(interaction, { clientX: 25, clientY: 35 })
+    fireEvent.pointerDown(interaction, { clientX: 60, clientY: 240 })
 
+    expect(isPointInFill).toHaveBeenCalledTimes(1)
     expect(frames.request).not.toHaveBeenCalled()
+  })
+
+  it('normalizes transformed pointer coordinates into the canvas coordinate space', () => {
+    mockMotionPreference()
+    const { ellipse } = mockCanvas()
+    const frames = mockAnimationFrame()
+    const { interaction, setRect } = renderCanvas()
+
+    setRect({ width: 1600, height: 1200, right: 1620, bottom: 1230 })
+    fireEvent.pointerDown(interaction, { clientX: 820, clientY: 630 })
+    frames.flush()
+
+    expect(ellipse).toHaveBeenNthCalledWith(1, 400, 300, expect.any(Number), expect.any(Number), 0, 0, Math.PI * 2)
+  })
+
+  it('uses the rendered mask path when SVG fill hit testing is unavailable', () => {
+    mockMotionPreference()
+    const { isPointInPath } = mockCanvas(false)
+    mockAnimationFrame()
+    vi.stubGlobal('Path2D', vi.fn())
+    const { interaction } = renderCanvas(true, null)
+
+    fireEvent.pointerDown(interaction, { clientX: 60, clientY: 240 })
+
+    expect(isPointInPath).toHaveBeenCalledTimes(1)
   })
 
   it('caps active ripples at three', () => {

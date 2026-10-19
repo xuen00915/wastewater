@@ -33,10 +33,11 @@ describe('Hero', () => {
     expect(container.querySelector('.portal-card')).not.toBeInTheDocument()
   })
 
-  it('keeps one continuous portal image layer through immersion', () => {
+  it('keeps one animated portal image and a dedicated static immersion image', () => {
     const { container } = render(<Hero />)
 
-    expect(container.querySelector('.hero__immersion-photo')).not.toBeInTheDocument()
+    expect(container.querySelector('.hero__immersion-photo')).toHaveAttribute('src', '/images/home-hero-wastewater.webp')
+    expect(container.querySelector('.hero__immersion-photo')).toHaveAttribute('alt', '')
     expect(container.querySelector('.hero__immersion .water-surface')).toBeInTheDocument()
   })
 })

@@ -4,6 +4,14 @@ import { vi } from 'vitest'
 import { Header } from './Header'
 
 describe('Header', () => {
+  it('marks only the homepage header for dark-hero contrast styling', () => {
+    const { rerender } = render(<Header currentPage="home" />)
+    expect(screen.getByRole('banner')).toHaveClass('site-header--home')
+
+    rerender(<Header currentPage="research" />)
+    expect(screen.getByRole('banner')).not.toHaveClass('site-header--home')
+  })
+
   it('renders six real page links and identifies the current page', () => {
     render(<Header currentPage="research" />)
     const desktopNavigation = screen.getByRole('navigation', { name: 'Primary navigation' })

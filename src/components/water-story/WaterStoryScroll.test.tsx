@@ -58,6 +58,7 @@ function StoryFixture() {
   return (
     <WaterStoryScroll>
       <svg><path data-water-mask /></svg>
+      <div className="hero__copy"><a href="/research/">Research</a></div>
       <p>Story content</p>
     </WaterStoryScroll>
   )
@@ -121,6 +122,20 @@ describe('WaterStoryScroll', () => {
     fireEvent.resize(window)
     frames.flush(200)
     expect(container.querySelector('.water-story')).toHaveStyle('--water-progress: 0')
+  })
+
+  it('removes fully faded hero calls to action from pointer and keyboard interaction', () => {
+    mockMotionPreference()
+    mockGeometry()
+    const frames = mockAnimationFrame()
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 1100 })
+
+    const { container } = render(<StoryFixture />)
+    frames.flush()
+
+    const copy = container.querySelector<HTMLElement>('.hero__copy')!
+    expect(copy).toHaveAttribute('inert')
+    expect(copy).toHaveAttribute('aria-hidden', 'true')
   })
 
   it('uses static reduced-motion mode without scroll-driven listeners', () => {

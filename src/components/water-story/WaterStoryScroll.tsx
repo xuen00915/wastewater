@@ -34,6 +34,7 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
     let frameId: number | null = null
     let inViewport = true
     let scrollListenersAttached = false
+    const heroCopy = story.querySelector<HTMLElement>('.hero__copy')
 
     const updateActivity = () => {
       story.dataset.active = String(inViewport && !document.hidden)
@@ -60,6 +61,16 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
       story.style.setProperty('--portal-stacked-shift-x', `${values.portalProgress * -4}vw`)
       story.style.setProperty('--portal-stacked-shift-y', `${values.portalProgress * -22}vh`)
       story.querySelector('[data-water-mask]')?.setAttribute('d', interpolatePortalPath(values.progress))
+
+      if (heroCopy) {
+        const copyIsInteractive = reducedMotion || values.copyOpacity >= 0.15
+        if (!copyIsInteractive && heroCopy.contains(document.activeElement)) {
+          (document.activeElement as HTMLElement | null)?.blur()
+        }
+        heroCopy.toggleAttribute('inert', !copyIsInteractive)
+        if (copyIsInteractive) heroCopy.removeAttribute('aria-hidden')
+        else heroCopy.setAttribute('aria-hidden', 'true')
+      }
     }
 
     const schedulePaint = () => {

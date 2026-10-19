@@ -19,11 +19,52 @@ const RIPPLE_LIFE = 1700
 const MAX_DPR = 2
 const MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
-function isInsideOrganicPortal(x: number, y: number, width: number, height: number) {
+function isInsideFallbackPortal(x: number, y: number, width: number, height: number) {
   if (width <= 0 || height <= 0) return false
   const normalizedX = (x - width / 2) / (width * 0.48)
   const normalizedY = (y - height / 2) / (height * 0.44)
   return normalizedX * normalizedX + normalizedY * normalizedY <= 1
+}
+
+function isInsideWaterMask(
+  interaction: HTMLElement,
+  context: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+) {
+  const svg = interaction.querySelector<SVGSVGElement>('.living-water-portal__visual, svg')
+  const mask = interaction.querySelector<SVGGeometryElement>('[data-water-mask]')
+  const viewBox = svg?.getAttribute('viewBox')?.trim().split(/[\s,]+/).map(Number)
+
+  if (!svg || !mask || viewBox?.length !== 4) {
+    return isInsideFallbackPortal(x, y, width, height)
+  }
+
+  const [viewX, viewY, viewWidth, viewHeight] = viewBox
+  if (!(viewWidth > 0) || !(viewHeight > 0) || width <= 0 || height <= 0) return false
+
+  const scale = Math.max(width / viewWidth, height / viewHeight)
+  const offsetX = (width - viewWidth * scale) / 2
+  const offsetY = (height - viewHeight * scale) / 2
+  const point = {
+    x: viewX + (x - offsetX) / scale,
+    y: viewY + (y - offsetY) / scale,
+  } as DOMPoint
+
+  if (typeof mask.isPointInFill === 'function') return mask.isPointInFill(point)
+
+  const pathData = mask.getAttribute('d')
+  if (pathData && typeof Path2D === 'function' && typeof context.isPointInPath === 'function') {
+    context.save()
+    context.setTransform(1, 0, 0, 1, 0, 0)
+    const isInside = context.isPointInPath(new Path2D(pathData), point.x, point.y)
+    context.restore()
+    return isInside
+  }
+
+  return isInsideFallbackPortal(x, y, width, height)
 }
 
 function storyIsActive(element: HTMLElement) {
@@ -181,10 +222,10 @@ export function PortalRippleCanvas(): ReactElement {
     const handlePointerDown = (event: PointerEvent) => {
       if (!canAnimate()) return
       const rect = interaction.getBoundingClientRect()
-      const x = event.clientX - rect.left
-      const y = event.clientY - rect.top
-      if (!isInsideOrganicPortal(x, y, rect.width, rect.height)) return
-      addRipple(x, y)
+      const screenX = event.clientX - rect.left
+      const screenY = event.clientY - rect.top
+      if (!isInsideWaterMask(interaction, ctx, screenX, screenY, rect.width, rect.height)) return
+      addRipple(screenX / rect.width * width, screenY / rect.height * height)
     }
 
     const handleVisibilityChange = () => {
