@@ -24,13 +24,15 @@ export function NavigationWaterTransition() {
   const [transition, setTransition] = useState<TransitionState>(null)
 
   useEffect(() => {
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const motionQuery = typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)')
+      : null
     let navigationTimer: number | null = null
 
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0) return
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
-      if (motionQuery.matches) return
+      if (motionQuery?.matches) return
 
       const target = event.target
       if (!(target instanceof Element)) return
