@@ -1,5 +1,6 @@
 import { useId, type ReactElement } from 'react'
 import { interpolatePortalPath } from './waterStoryMath'
+import { PortalRippleCanvas } from './PortalRippleCanvas'
 
 const imagePath = `${import.meta.env.BASE_URL}images/home-hero-wastewater.webp`
 const imageDescription = 'Representative pilot wastewater treatment system integrated with vegetation'
@@ -83,7 +84,7 @@ export function LivingWaterPortal(): ReactElement {
             stroke={`url(#${highlightGradientId})`}
           />
         </svg>
-        <div data-ripple-canvas-mount aria-hidden="true" />
+        <PortalRippleCanvas />
       </div>
 
       <div className="living-water-portal__droplets" aria-hidden="true">
