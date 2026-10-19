@@ -37,7 +37,7 @@
 .hero__actions .button-link--primary:hover { background: #ddf8f4; }
 .hero__actions .button-link--secondary { color: #f4fbff; border-color: rgb(255 255 255 / 58%); }
 .hero__actions .button-link--secondary:hover { color: #fff; border-color: rgb(150 235 224 / 72%); background: rgb(45 212 191 / 11%); }
-.hero__portal { position: relative; z-index: 3; width: min(62vw, 880px); height: min(76svh, 720px); margin-left: -3%; transform: translate3d(var(--portal-shift-x),var(--portal-shift-y),0) scale(var(--portal-stage-scale)); transform-origin: 60% 50%; opacity: calc(1 - var(--immersion-progress)); will-change: transform,opacity; }
+.hero__portal { position: relative; z-index: 3; width: min(60vw, 880px); height: min(76svh, 720px); margin-left: -3%; transform: translate3d(var(--portal-shift-x),var(--portal-shift-y),0) scale(var(--portal-stage-scale)); transform-origin: 60% 50%; opacity: 1; will-change: transform; }
 .living-water-portal,.living-water-portal__interaction,.living-water-portal__visual { width: 100%; height: 100%; }
 .living-water-portal { position: relative; filter: drop-shadow(0 26px 44px rgb(0 12 22 / 30%)); }
 .living-water-portal__interaction { position: relative; touch-action: pan-y; }
@@ -55,9 +55,7 @@
 .living-water-portal__droplet--4 { bottom: 10%; left: 21%; width: 11px; }
 .living-water-portal__droplet--5 { top: 38%; left: 4%; width: 5px; }
 .portal-ripple-canvas,.portal-ripple-canvas__surface { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.hero__immersion { position: absolute; z-index: 1; inset: 0; overflow: hidden; pointer-events: none; opacity: var(--immersion-progress); background: #052a3d; will-change: opacity; }
-.hero__immersion-image { position: absolute; inset: 0; overflow: hidden; }
-.hero__immersion-photo { width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; transform: scale(var(--image-scale)); will-change: transform; }
+.hero__immersion { position: absolute; z-index: 4; inset: 0; overflow: hidden; pointer-events: none; }
 .water-surface { position: absolute; z-index: 2; top: var(--waterline-position); right: 0; bottom: 0; left: 0; opacity: var(--immersion-progress); will-change: top,opacity; }
 .water-surface__line { position: absolute; z-index: 4; top: -24px; right: 0; left: 0; height: 48px; filter: drop-shadow(0 5px 8px rgb(2 44 69 / 36%)); }
 .water-surface__line svg { display: block; width: 100%; height: 100%; overflow: visible; animation: waterline-drift 8s ease-in-out infinite alternate; }
@@ -143,7 +141,7 @@
   .hero__copy h1 { font-size: clamp(3rem,7vw,4rem); }
   .hero__description { max-width: 620px; margin-top: 20px; }
   .hero__actions { margin-top: 25px; }
-  .hero__portal { width: min(94vw,800px); height: min(48svh,500px); margin: -2vh auto 0; transform-origin: 58% 47%; }
+  .hero__portal { width: min(94vw,800px); height: min(48svh,500px); margin: -2vh auto 0; transform: translate3d(var(--portal-stacked-shift-x),var(--portal-stacked-shift-y),0) scale(var(--portal-stacked-scale)); transform-origin: 50% 50%; }
   .hero__scroll-indicator { right: var(--gutter); bottom: 24px; }
   .challenge__grid { grid-template-columns: 1fr; gap: 44px; }
   .process__flow { margin-top: 58px; grid-template-columns: 1fr; gap: 0; }
@@ -166,7 +164,7 @@
   .hero__actions { display: grid; grid-template-columns: 1fr; }
   .hero__actions .button-link { width: 100%; box-sizing: border-box; justify-content: center; }
   .hero__description { margin-top: 24px; font-size: 1rem; }
-  .hero__portal { width: 95vw; height: clamp(270px,39svh,390px); margin: 0 0 0 calc(var(--gutter) * -1); transform-origin: 60% 48%; }
+  .hero__portal { width: 95vw; height: clamp(270px,39svh,390px); margin: 0 0 0 calc(var(--gutter) * -1); transform-origin: 50% 50%; }
   .living-water-portal__image,.living-water-portal__refraction image { transform: scale(1.02); }
   .living-water-portal__refraction { filter: none; opacity: .08; }
   .living-water-portal__droplet:nth-child(n+2) { display: none; }
@@ -186,7 +184,6 @@
   .water-story[data-static-story='true'] .hero__immersion { position: relative; order: 2; height: clamp(440px,66svh,720px); opacity: 1; }
   .water-story[data-static-story='true'] .hero__portal { transform: none; opacity: 1; }
   .water-story[data-static-story='true'] .hero__copy { transform: none; opacity: 1; }
-  .water-story[data-static-story='true'] .hero__immersion-photo { transform: none; }
   .water-story[data-static-story='true'] .water-surface { top: 60%; opacity: 1; }
   .water-story[data-static-story='true'] .hero__scroll-indicator { display: none; }
   .js .hero__copy h1,.js .hero__description,.js .hero__actions { animation: none; }

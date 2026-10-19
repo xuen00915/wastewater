@@ -32,4 +32,11 @@ describe('Hero', () => {
     expect(container.querySelector('.water-contours')).not.toBeInTheDocument()
     expect(container.querySelector('.portal-card')).not.toBeInTheDocument()
   })
+
+  it('keeps one continuous portal image layer through immersion', () => {
+    const { container } = render(<Hero />)
+
+    expect(container.querySelector('.hero__immersion-photo')).not.toBeInTheDocument()
+    expect(container.querySelector('.hero__immersion .water-surface')).toBeInTheDocument()
+  })
 })

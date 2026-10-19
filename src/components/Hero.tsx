@@ -4,20 +4,11 @@ import { LivingWaterPortal } from './water-story/LivingWaterPortal'
 import { WaterStoryScroll } from './water-story/WaterStoryScroll'
 import { WaterSurface } from './water-story/WaterSurface'
 
-const heroImage = `${import.meta.env.BASE_URL}images/home-hero-wastewater.webp`
-
 export function Hero() {
   return (
     <WaterStoryScroll>
       <div className="hero__ambient" aria-hidden="true"><i /><i /></div>
       <div className="hero__immersion" aria-hidden="true">
-        <div className="hero__immersion-image">
-          <img
-            className="hero__immersion-photo"
-            src={heroImage}
-            alt=""
-          />
-        </div>
         <WaterSurface />
       </div>
 

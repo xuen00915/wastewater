@@ -56,6 +56,9 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
       story.style.setProperty('--portal-stage-scale', String(1 + values.portalProgress * 0.72))
       story.style.setProperty('--portal-shift-x', `${values.portalProgress * -18}vw`)
       story.style.setProperty('--portal-shift-y', `${values.portalProgress * 2}vh`)
+      story.style.setProperty('--portal-stacked-scale', String(1 + values.portalProgress * 1.8))
+      story.style.setProperty('--portal-stacked-shift-x', `${values.portalProgress * -4}vw`)
+      story.style.setProperty('--portal-stacked-shift-y', `${values.portalProgress * -22}vh`)
       story.querySelector('[data-water-mask]')?.setAttribute('d', interpolatePortalPath(values.progress))
     }
 
