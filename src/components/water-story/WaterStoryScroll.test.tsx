@@ -115,6 +115,7 @@ describe('WaterStoryScroll', () => {
     const { container } = render(<StoryFixture />)
     frames.flush()
     expect(container.querySelector('.water-story')).toHaveStyle('--water-progress: 1')
+    expect(container.querySelector('.water-story')).toHaveStyle('--cinematic-scene-opacity: 0.44999999999999996')
 
     Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 })
     fireEvent.resize(window)

@@ -55,7 +55,7 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
       story.style.setProperty('--waterline-position', `${values.waterlinePercent}%`)
       story.style.setProperty('--image-scale', String(values.imageScale))
       story.style.setProperty('--cinematic-scale', String(1 + values.progress * 0.28))
-      story.style.setProperty('--cinematic-scene-opacity', String(1 - values.exitProgress))
+      story.style.setProperty('--cinematic-scene-opacity', String(1 - values.exitProgress * 0.55))
 
       if (heroCopy) {
         const copyIsInteractive = reducedMotion || values.copyOpacity >= 0.15

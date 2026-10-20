@@ -11,7 +11,7 @@ export function ChallengeSection() {
   return (
     <section className="challenge section" aria-labelledby="challenge-title">
       <div className="container">
-        <Reveal className="challenge__grid">
+        <Reveal className="challenge__grid challenge__reveal">
           <div className="challenge__title">
             <h2 id="challenge-title">Water Shouldn’t End After Treatment</h2>
           </div>
