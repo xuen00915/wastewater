@@ -56,7 +56,7 @@
 .living-water-portal__droplet--4 { bottom: 10%; left: 21%; width: 11px; }
 .living-water-portal__droplet--5 { top: 38%; left: 4%; width: 5px; }
 .portal-ripple-canvas,.portal-ripple-canvas__surface { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.hero__immersion { position: absolute; z-index: 4; inset: 0; overflow: hidden; pointer-events: none; background: #052a3d; }
+.hero__immersion { position: absolute; z-index: 4; inset: 0; overflow: hidden; pointer-events: none; }
 .hero__immersion-photo { position: absolute; inset: 0; display: none; width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; }
 .water-surface { position: absolute; z-index: 2; top: var(--waterline-position); right: 0; bottom: 0; left: 0; opacity: var(--immersion-progress); will-change: top,opacity; }
 .water-surface__line { position: absolute; z-index: 4; top: -24px; right: 0; left: 0; height: 48px; filter: drop-shadow(0 5px 8px rgb(2 44 69 / 36%)); }
@@ -183,7 +183,7 @@
   .water-story[data-static-story='true'] { height: auto; min-height: 0; }
   .water-story[data-static-story='true'] .water-story__sticky { position: relative; display: grid; height: auto; min-height: 0; overflow: hidden; }
   .water-story[data-static-story='true'] .hero__inner { order: 1; min-height: min(900px,100svh); }
-  .water-story[data-static-story='true'] .hero__immersion { position: relative; order: 2; height: clamp(440px,66svh,720px); opacity: 1; }
+  .water-story[data-static-story='true'] .hero__immersion { position: relative; order: 2; height: clamp(440px,66svh,720px); opacity: 1; background: #052a3d; }
   .water-story[data-static-story='true'] .hero__immersion-photo { display: block; }
   .water-story[data-static-story='true'] .hero__portal { transform: none; opacity: 1; }
   .water-story[data-static-story='true'] .hero__copy { transform: none; opacity: 1; }
