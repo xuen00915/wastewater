@@ -3,7 +3,6 @@ import { interpolatePortalPath } from './waterStoryMath'
 import { PortalRippleCanvas } from './PortalRippleCanvas'
 
 const imagePath = `${import.meta.env.BASE_URL}images/home-hero-wastewater.webp`
-const darkFramePath = `${import.meta.env.BASE_URL}images/home-water-frame-dark.webp`
 const lightFramePath = `${import.meta.env.BASE_URL}images/home-water-frame-light.webp`
 const imageDescription = 'Representative pilot wastewater treatment system integrated with vegetation'
 
@@ -86,12 +85,6 @@ export function LivingWaterPortal(): ReactElement {
             stroke={`url(#${highlightGradientId})`}
           />
         </svg>
-        <img
-          className="living-water-portal__frame living-water-portal__frame--dark"
-          src={darkFramePath}
-          alt=""
-          aria-hidden="true"
-        />
         <img
           className="living-water-portal__frame living-water-portal__frame--light"
           src={lightFramePath}

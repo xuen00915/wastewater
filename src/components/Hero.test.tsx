@@ -36,6 +36,9 @@ describe('Hero', () => {
   it('keeps one animated portal image and a dedicated static immersion image', () => {
     const { container } = render(<Hero />)
 
+    expect(container.querySelector('.hero__cinematic-photo')).toHaveAttribute('src', '/images/home-hero-wastewater.webp')
+    expect(container.querySelector('.hero__cinematic-frame')).toHaveAttribute('src', '/images/home-water-frame-dark.webp')
+    expect(container.querySelector('.hero__cinematic')).toHaveAttribute('aria-hidden', 'true')
     expect(container.querySelector('.hero__immersion-photo')).toHaveAttribute('src', '/images/home-hero-wastewater.webp')
     expect(container.querySelector('.hero__immersion-photo')).toHaveAttribute('alt', '')
     expect(container.querySelector('.hero__immersion .water-surface')).toBeInTheDocument()
