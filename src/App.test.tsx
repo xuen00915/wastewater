@@ -36,11 +36,11 @@ describe('seven-page site composition', () => {
     expect(screen.queryByText('Opportunities will be published when available.')).not.toBeInTheDocument()
   })
 
-  it('keeps the animated immersion overlay transparent so the portal remains visible', () => {
+  it('does not stack the superseded immersion overlay over the cinematic hero', () => {
     const { container } = renderPath('/')
-    const immersion = container.querySelector<HTMLElement>('.hero__immersion')!
 
-    expect(getComputedStyle(immersion).backgroundColor).toBe('rgba(0, 0, 0, 0)')
+    expect(container.querySelector('.hero__immersion')).not.toBeInTheDocument()
+    expect(container.querySelector('.hero__cinematic')).toBeInTheDocument()
   })
 
   it('retains the global page-navigation water transition on Home', () => {

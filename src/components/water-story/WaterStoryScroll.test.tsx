@@ -2,9 +2,6 @@ import { act, fireEvent, render } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { WaterStoryScroll } from './WaterStoryScroll'
 
-const FULL_FRAME_PATH =
-  'M 0 0 C 0 0 250 0 500 0 C 750 0 1000 0 1000 0 C 1000 175 1000 350 1000 350 C 1000 525 1000 700 1000 700 C 750 700 500 700 500 700 C 250 700 0 700 0 700 C 0 525 0 350 0 350 C 0 175 0 0 0 0 Z'
-
 type MediaListener = (event: MediaQueryListEvent) => void
 
 function mockMotionPreference(matches = false, legacy = false) {
@@ -57,7 +54,6 @@ function mockGeometry(offsetTop = 100, offsetHeight = 1800, viewportHeight = 800
 function StoryFixture() {
   return (
     <WaterStoryScroll>
-      <svg><path data-water-mask /></svg>
       <div className="hero__copy"><a href="/research/">Research</a></div>
       <p>Story content</p>
     </WaterStoryScroll>
@@ -89,13 +85,12 @@ describe('WaterStoryScroll', () => {
       '--exit-progress': '0',
       '--waterline-percent': '60',
       '--image-scale': '1.015',
-      '--cinematic-scene-opacity': '0',
-      '--portal-object-opacity': '1',
-      '--portal-light-frame-opacity': '0.857142857142857',
+      '--cinematic-scene-opacity': '1',
+      '--cinematic-scale': '1.1400000000000001',
     })
   })
 
-  it('updates the portal mask at the scheduled scroll position', () => {
+  it('updates the cinematic zoom at the scheduled scroll position', () => {
     mockMotionPreference()
     mockGeometry()
     const frames = mockAnimationFrame()
@@ -108,7 +103,7 @@ describe('WaterStoryScroll', () => {
     fireEvent.scroll(window)
     frames.flush(200)
 
-    expect(container.querySelector('[data-water-mask]')).toHaveAttribute('d', FULL_FRAME_PATH)
+    expect(container.querySelector('.water-story')).toHaveStyle('--cinematic-scale: 1.182')
   })
 
   it('recalculates after resize and clamps progress to the story range', () => {

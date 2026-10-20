@@ -1,8 +1,6 @@
 import { ButtonLink } from './ui/ButtonLink'
 import { pageHref } from '../site'
-import { LivingWaterPortal } from './water-story/LivingWaterPortal'
 import { WaterStoryScroll } from './water-story/WaterStoryScroll'
-import { WaterSurface } from './water-story/WaterSurface'
 
 const heroImage = `${import.meta.env.BASE_URL}images/home-hero-wastewater.webp`
 const cinematicFrame = `${import.meta.env.BASE_URL}images/home-water-frame-dark.webp`
@@ -11,13 +9,13 @@ export function Hero() {
   return (
     <WaterStoryScroll>
       <div className="hero__ambient" aria-hidden="true"><i /><i /></div>
-      <div className="hero__cinematic" aria-hidden="true">
+      <div
+        className="hero__cinematic"
+        role="img"
+        aria-label="Representative pilot wastewater treatment system integrated with vegetation framed by water"
+      >
         <img className="hero__cinematic-photo" src={heroImage} alt="" />
         <img className="hero__cinematic-frame" src={cinematicFrame} alt="" />
-      </div>
-      <div className="hero__immersion" aria-hidden="true">
-        <img className="hero__immersion-photo" src={heroImage} alt="" />
-        <WaterSurface />
       </div>
 
       <div className="hero__inner">
@@ -33,7 +31,6 @@ export function Hero() {
             <ButtonLink href={pageHref('projects')} variant="secondary">View Projects</ButtonLink>
           </div>
         </div>
-        <div className="hero__portal"><LivingWaterPortal /></div>
       </div>
       <p className="hero__scroll-indicator"><span>Scroll to explore</span><i aria-hidden="true" /></p>
     </WaterStoryScroll>

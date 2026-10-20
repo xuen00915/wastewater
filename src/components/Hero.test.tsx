@@ -2,14 +2,15 @@ import { render, screen } from '@testing-library/react'
 import { Hero } from './Hero'
 
 describe('Hero', () => {
-  it('assembles one accessible portal-to-waterline story', () => {
+  it('assembles one accessible full-scene zoom story', () => {
     const { container } = render(<Hero />)
 
     expect(container.querySelectorAll('.water-story')).toHaveLength(1)
-    expect(container.querySelectorAll('.living-water-portal')).toHaveLength(1)
+    expect(container.querySelector('.living-water-portal')).not.toBeInTheDocument()
+    expect(container.querySelector('.hero__immersion')).not.toBeInTheDocument()
+    expect(container.querySelector('.water-surface')).not.toBeInTheDocument()
     expect(screen.getAllByRole('img')).toHaveLength(1)
     expect(screen.getByRole('img', { name: /representative pilot wastewater treatment system integrated with vegetation/i })).toBeInTheDocument()
-    expect(container.querySelector('.water-surface')).toBeInTheDocument()
     expect(container.querySelector('.hero__scroll-indicator')).toHaveTextContent(/scroll to explore/i)
   })
 
@@ -33,14 +34,12 @@ describe('Hero', () => {
     expect(container.querySelector('.portal-card')).not.toBeInTheDocument()
   })
 
-  it('keeps one animated portal image and a dedicated static immersion image', () => {
+  it('uses only the approved full-width cinematic composition', () => {
     const { container } = render(<Hero />)
 
     expect(container.querySelector('.hero__cinematic-photo')).toHaveAttribute('src', '/images/home-hero-wastewater.webp')
     expect(container.querySelector('.hero__cinematic-frame')).toHaveAttribute('src', '/images/home-water-frame-dark.webp')
-    expect(container.querySelector('.hero__cinematic')).toHaveAttribute('aria-hidden', 'true')
-    expect(container.querySelector('.hero__immersion-photo')).toHaveAttribute('src', '/images/home-hero-wastewater.webp')
-    expect(container.querySelector('.hero__immersion-photo')).toHaveAttribute('alt', '')
-    expect(container.querySelector('.hero__immersion .water-surface')).toBeInTheDocument()
+    expect(container.querySelector('.hero__cinematic')).toHaveAttribute('role', 'img')
+    expect(container.querySelector('.living-water-portal__frame--light')).not.toBeInTheDocument()
   })
 })
