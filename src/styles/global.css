@@ -29,8 +29,7 @@ main { overflow: clip; }
 h1, h2, h3, p { overflow-wrap: break-word; }
 section[id],
 #collaboration-options,
-#career-opportunities,
-#contact-availability { scroll-margin-top: 82px; }
+#career-opportunities { scroll-margin-top: 82px; }
 
 
 .page-water-transition {
