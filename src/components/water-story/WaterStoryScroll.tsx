@@ -57,7 +57,7 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
       story.style.setProperty('--cinematic-scale', String(1 + values.progress * 0.28))
       const transitionProgress = Math.max(0, Math.min(1, (values.progress - 0.55) / 0.45))
       const nextContentOpacity = Math.max(0, Math.min(1, (values.progress - 0.62) / 0.28))
-      story.style.setProperty('--cinematic-scene-opacity', String(1 - transitionProgress * 0.58))
+      story.style.setProperty('--cinematic-scene-opacity', String(1 - transitionProgress * 0.76))
       story.style.setProperty('--next-content-opacity', String(nextContentOpacity))
 
       if (heroCopy) {
