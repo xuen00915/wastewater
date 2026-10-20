@@ -87,6 +87,7 @@ describe('WaterStoryScroll', () => {
       '--image-scale': '1.015',
       '--cinematic-scene-opacity': '1',
       '--cinematic-scale': '1.1400000000000001',
+      '--next-content-opacity': '0',
     })
   })
 
@@ -115,7 +116,8 @@ describe('WaterStoryScroll', () => {
     const { container } = render(<StoryFixture />)
     frames.flush()
     expect(container.querySelector('.water-story')).toHaveStyle('--water-progress: 1')
-    expect(container.querySelector('.water-story')).toHaveStyle('--cinematic-scene-opacity: 0.44999999999999996')
+    expect(container.querySelector('.water-story')).toHaveStyle('--cinematic-scene-opacity: 0.42000000000000015')
+    expect(container.querySelector('.water-story')).toHaveStyle('--next-content-opacity: 1')
 
     Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 })
     fireEvent.resize(window)

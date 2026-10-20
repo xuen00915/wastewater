@@ -19,7 +19,7 @@
 .menu-toggle, .mobile-nav { display: none; }
 .mobile-nav { overflow-y: auto; }
 
-.water-story { --water-progress: 0; --portal-progress: 0; --portal-scale: 1; --cinematic-scale: 1; --cinematic-scene-opacity: 1; --copy-opacity: 1; --copy-shift-x: 0px; --copy-shift-y: 0px; --immersion-progress: 0; --exit-progress: 0; --waterline-position: 60%; --image-scale: 1; position: relative; height: 200svh; min-height: 1360px; background: #031a29; isolation: isolate; }
+.water-story { --water-progress: 0; --portal-progress: 0; --portal-scale: 1; --cinematic-scale: 1; --cinematic-scene-opacity: 1; --next-content-opacity: 0; --copy-opacity: 1; --copy-shift-x: 0px; --copy-shift-y: 0px; --immersion-progress: 0; --exit-progress: 0; --waterline-position: 60%; --image-scale: 1; position: relative; height: 200svh; min-height: 1360px; background: #031a29; isolation: isolate; }
 .water-story__sticky { position: sticky; top: 0; height: 100svh; min-height: 680px; overflow: clip; background: #031a29; isolation: isolate; }
 .water-story__sticky::before { position: absolute; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(circle at 74% 42%, rgb(41 183 210 / 18%), transparent 32%), radial-gradient(ellipse at 42% 0%, rgb(79 181 216 / 10%), transparent 46%), linear-gradient(135deg,#031a29 0%,#052a3d 52%,#08334a 100%); content: ''; }
 .hero__ambient { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; opacity: var(--copy-opacity); }
@@ -94,6 +94,14 @@
 .challenge { background: var(--white); }
 .challenge__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(50px, 8vw, 130px); }
 .challenge__reveal.reveal--prepared,.challenge__reveal.reveal--visible { transform: none; }
+.challenge--overlay { position: absolute; z-index: 5; inset: 0; display: grid; align-items: center; padding-top: clamp(104px,14vh,148px); padding-bottom: clamp(42px,7vh,72px); pointer-events: none; color: #eef9fc; background: transparent; opacity: var(--next-content-opacity); }
+.challenge--overlay .challenge__grid { align-items: start; }
+.challenge--overlay .challenge__title h2 { color: #f5fbfd; text-shadow: 0 3px 24px rgb(0 12 22 / 40%); }
+.challenge--overlay .challenge__body > p,.challenge--overlay .challenge__body > p:first-child { color: rgb(235 247 250 / 88%); text-shadow: 0 2px 18px rgb(0 12 22 / 34%); }
+.challenge--overlay .challenge__statements { border-color: rgb(219 244 248 / 24%); }
+.challenge--overlay .challenge__statements article + article { border-color: rgb(219 244 248 / 20%); }
+.challenge--overlay .challenge__statements svg,.challenge--overlay .challenge__statements h3 { color: #8be4d4; }
+.challenge--overlay .challenge__statements p { color: rgb(235 247 250 / 78%); }
 .challenge__title h2 { max-width: 550px; margin: 0; color: var(--navy-deep); font-size: clamp(2.4rem, 4.2vw, 3.6rem); font-weight: 700; line-height: 1.08; letter-spacing: -.04em; }
 .challenge__body > p { margin: 0 0 22px; color: var(--muted); font-size: clamp(1rem, 1.3vw, 1.1rem); line-height: 1.8; }
 .challenge__body > p:first-child { color: var(--text); font-size: clamp(1.08rem, 1.6vw, 1.28rem); }
@@ -153,6 +161,9 @@
   .hero__portal { width: min(94vw,800px); height: min(48svh,500px); margin: -2vh auto 0; transform: translate3d(var(--portal-stacked-shift-x),var(--portal-stacked-shift-y),0) scale(var(--portal-stacked-scale)); transform-origin: 50% 50%; }
   .hero__scroll-indicator { right: var(--gutter); bottom: 24px; }
   .challenge__grid { grid-template-columns: 1fr; gap: 44px; }
+  .challenge--overlay { padding-top: 96px; padding-bottom: 34px; }
+  .challenge--overlay .challenge__grid { gap: 22px; }
+  .challenge--overlay .challenge__statements { grid-template-columns: repeat(3,1fr); margin-top: 24px; }
   .process__flow { margin-top: 58px; grid-template-columns: 1fr; gap: 0; }
   .process__flow::before, .process__flow::after { top: 30px; right: auto; bottom: 30px; left: 30px; width: 1px; height: auto; }
   .process__flow::after { transform: scaleY(0); transform-origin: top; }
@@ -184,6 +195,14 @@
   .challenge__statements { grid-template-columns: 1fr; }
   .challenge__statements article { padding: 24px 0; }
   .challenge__statements article + article { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
+  .challenge--overlay { padding: 88px var(--gutter) 24px; }
+  .challenge--overlay .challenge__title h2 { font-size: clamp(2rem,9vw,2.55rem); }
+  .challenge--overlay .challenge__body > p { margin-bottom: 12px; font-size: .86rem; line-height: 1.48; }
+  .challenge--overlay .challenge__statements { grid-template-columns: repeat(3,1fr); margin-top: 16px; }
+  .challenge--overlay .challenge__statements article { padding: 14px 7px 0; border-top: 0; }
+  .challenge--overlay .challenge__statements article + article { padding-left: 7px; border-top: 0; border-left: 1px solid rgb(219 244 248 / 20%); }
+  .challenge--overlay .challenge__statements h3 { margin: 10px 0 5px; font-size: .66rem; }
+  .challenge--overlay .challenge__statements p { font-size: .66rem; line-height: 1.35; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -194,6 +213,12 @@
   .water-story[data-static-story='true'] .hero__immersion-photo { display: block; }
   .water-story[data-static-story='true'] .hero__portal { transform: none; opacity: 1; }
   .water-story[data-static-story='true'] .hero__copy { transform: none; opacity: 1; }
+  .water-story[data-static-story='true'] .challenge--overlay { position: relative; order: 2; min-height: 0; padding: var(--section-space) var(--gutter); pointer-events: auto; color: var(--text); background: var(--white); opacity: 1; }
+  .water-story[data-static-story='true'] .challenge--overlay .challenge__title h2 { color: var(--navy-deep); text-shadow: none; }
+  .water-story[data-static-story='true'] .challenge--overlay .challenge__body > p,.water-story[data-static-story='true'] .challenge--overlay .challenge__body > p:first-child { color: var(--muted); text-shadow: none; }
+  .water-story[data-static-story='true'] .challenge--overlay .challenge__statements { border-color: var(--line); }
+  .water-story[data-static-story='true'] .challenge--overlay .challenge__statements h3 { color: var(--navy); }
+  .water-story[data-static-story='true'] .challenge--overlay .challenge__statements p { color: var(--muted); }
   .water-story[data-static-story='true'] .water-surface { top: 60%; opacity: 1; }
   .water-story[data-static-story='true'] .hero__scroll-indicator { display: none; }
   .js .hero__copy h1,.js .hero__description,.js .hero__actions { animation: none; }

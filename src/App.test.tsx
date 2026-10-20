@@ -26,7 +26,8 @@ describe('seven-page site composition', () => {
   it('keeps Home concise with one continuous water story and linked previews', () => {
     const { container } = renderPath('/')
     expect(container.querySelector('canvas.water-ripple-trail')).toBeInTheDocument()
-    expect(container.querySelector('.water-story + .challenge')).toBeInTheDocument()
+    expect(container.querySelector('.water-story .challenge--overlay')).toBeInTheDocument()
+    expect(container.querySelector('.water-story + .process')).toBeInTheDocument()
     expect(container.querySelector('.portal-transition-scene')).not.toBeInTheDocument()
     expect(container.querySelector('.hero-water-effect')).not.toBeInTheDocument()
     expect(within(screen.getByTestId('research-areas')).getAllByRole('article')).toHaveLength(3)

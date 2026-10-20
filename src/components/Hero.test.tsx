@@ -9,6 +9,7 @@ describe('Hero', () => {
     expect(container.querySelector('.living-water-portal')).not.toBeInTheDocument()
     expect(container.querySelector('.hero__immersion')).not.toBeInTheDocument()
     expect(container.querySelector('.water-surface')).not.toBeInTheDocument()
+    expect(container.querySelector('.water-story .challenge--overlay')).toBeInTheDocument()
     expect(screen.getAllByRole('img')).toHaveLength(1)
     expect(screen.getByRole('img', { name: /representative pilot wastewater treatment system integrated with vegetation/i })).toBeInTheDocument()
     expect(container.querySelector('.hero__scroll-indicator')).toHaveTextContent(/scroll to explore/i)

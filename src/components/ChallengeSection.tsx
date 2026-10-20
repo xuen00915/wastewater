@@ -7,9 +7,13 @@ const statements = [
   { title: 'Reuse', text: 'Connect treated resources with green infrastructure', icon: 'leaf' as const },
 ]
 
-export function ChallengeSection() {
+type ChallengeSectionProps = {
+  overlay?: boolean
+}
+
+export function ChallengeSection({ overlay = false }: ChallengeSectionProps) {
   return (
-    <section className="challenge section" aria-labelledby="challenge-title">
+    <section className={`challenge section${overlay ? ' challenge--overlay' : ''}`} aria-labelledby="challenge-title">
       <div className="container">
         <Reveal className="challenge__grid challenge__reveal">
           <div className="challenge__title">

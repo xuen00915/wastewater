@@ -1,5 +1,6 @@
 import { ButtonLink } from './ui/ButtonLink'
 import { pageHref } from '../site'
+import { ChallengeSection } from './ChallengeSection'
 import { WaterStoryScroll } from './water-story/WaterStoryScroll'
 
 const heroImage = `${import.meta.env.BASE_URL}images/home-hero-wastewater.webp`
@@ -32,6 +33,7 @@ export function Hero() {
           </div>
         </div>
       </div>
+      <ChallengeSection overlay />
       <p className="hero__scroll-indicator"><span>Scroll to explore</span><i aria-hidden="true" /></p>
     </WaterStoryScroll>
   )
