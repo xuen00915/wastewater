@@ -16,7 +16,9 @@ describe('shared homepage UI', () => {
 
   it('uses the requested semantic heading level', () => {
     render(<SectionHeading id="focused-heading" level={3} title="A focused heading" />)
-    expect(screen.getByRole('heading', { level: 3, name: 'A focused heading' })).toHaveAttribute('id', 'focused-heading')
+    const heading = screen.getByRole('heading', { level: 3, name: 'A focused heading' })
+    expect(heading).toHaveAttribute('id', 'focused-heading')
+    expect(heading.closest('header')).toHaveClass('section-heading--strong')
   })
 
   it('shows a descriptive and replaceable fallback when media cannot load', () => {

@@ -5,6 +5,7 @@
 }
 
 html {
+  font-size: 106.25%;
   scroll-behavior: smooth;
 }
 
@@ -37,6 +38,12 @@ a {
 
 button {
   border: 0;
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 103.125%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

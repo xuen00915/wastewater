@@ -12,7 +12,7 @@ type SectionHeadingProps = {
 export function SectionHeading({ id, title, description, level = 2, align = 'left', inverted = false }: SectionHeadingProps) {
   const Heading = `h${level}` as ElementType
   return (
-    <header className={`section-heading section-heading--${align}${inverted ? ' section-heading--inverted' : ''}`}>
+    <header className={`section-heading section-heading--strong section-heading--${align}${inverted ? ' section-heading--inverted' : ''}`}>
       <Heading id={id}>{title}</Heading>
       {description && <p className="section-heading__description">{description}</p>}
     </header>
