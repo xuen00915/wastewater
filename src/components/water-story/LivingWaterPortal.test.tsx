@@ -28,6 +28,17 @@ describe('LivingWaterPortal', () => {
     expect(container.querySelector('[data-ripple-canvas-mount]')).toBeInTheDocument()
   })
 
+  it('layers the approved dark and light water frames around the portal opening', () => {
+    const { container } = render(<LivingWaterPortal />)
+    const darkFrame = container.querySelector('.living-water-portal__frame--dark')
+    const lightFrame = container.querySelector('.living-water-portal__frame--light')
+
+    expect(darkFrame).toHaveAttribute('src', '/images/home-water-frame-dark.webp')
+    expect(lightFrame).toHaveAttribute('src', '/images/home-water-frame-light.webp')
+    expect(darkFrame).toHaveAttribute('aria-hidden', 'true')
+    expect(lightFrame).toHaveAttribute('aria-hidden', 'true')
+  })
+
   it('does not reintroduce competing cards, contours, particles, or factual copy', () => {
     const { container } = render(<LivingWaterPortal />)
 

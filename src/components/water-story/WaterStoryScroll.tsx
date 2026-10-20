@@ -60,6 +60,20 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
       story.style.setProperty('--portal-stacked-scale', String(1 + values.portalProgress * 1.8))
       story.style.setProperty('--portal-stacked-shift-x', `${values.portalProgress * -4}vw`)
       story.style.setProperty('--portal-stacked-shift-y', `${values.portalProgress * -22}vh`)
+      const darkFrameOpacity = values.progress <= 0.18
+        ? 1
+        : values.progress <= 0.38
+          ? 1 - (values.progress - 0.18) / 0.2
+          : 0
+      const lightFrameOpacity = values.progress <= 0.36
+        ? 0
+        : values.progress <= 0.48
+          ? (values.progress - 0.36) / 0.12
+          : values.progress <= 0.62
+            ? (0.62 - values.progress) / 0.14
+            : 0
+      story.style.setProperty('--portal-dark-frame-opacity', String(darkFrameOpacity))
+      story.style.setProperty('--portal-light-frame-opacity', String(lightFrameOpacity))
       story.querySelector('[data-water-mask]')?.setAttribute('d', interpolatePortalPath(values.progress))
 
       if (heroCopy) {

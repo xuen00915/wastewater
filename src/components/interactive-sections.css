@@ -19,7 +19,7 @@
 .menu-toggle, .mobile-nav { display: none; }
 .mobile-nav { overflow-y: auto; }
 
-.water-story { --water-progress: 0; --portal-progress: 0; --portal-scale: 1; --portal-stage-scale: 1; --portal-shift-x: 0vw; --portal-shift-y: 0vh; --copy-opacity: 1; --copy-shift-x: 0px; --copy-shift-y: 0px; --immersion-progress: 0; --exit-progress: 0; --waterline-position: 60%; --image-scale: 1; position: relative; height: 200svh; min-height: 1360px; background: #031a29; isolation: isolate; }
+.water-story { --water-progress: 0; --portal-progress: 0; --portal-scale: 1; --portal-stage-scale: 1; --portal-shift-x: 0vw; --portal-shift-y: 0vh; --portal-dark-frame-opacity: 1; --portal-light-frame-opacity: 0; --copy-opacity: 1; --copy-shift-x: 0px; --copy-shift-y: 0px; --immersion-progress: 0; --exit-progress: 0; --waterline-position: 60%; --image-scale: 1; position: relative; height: 200svh; min-height: 1360px; background: #031a29; isolation: isolate; }
 .water-story__sticky { position: sticky; top: 0; height: 100svh; min-height: 680px; overflow: clip; background: #031a29; isolation: isolate; }
 .water-story__sticky::before { position: absolute; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(circle at 74% 42%, rgb(41 183 210 / 18%), transparent 32%), radial-gradient(ellipse at 42% 0%, rgb(79 181 216 / 10%), transparent 46%), linear-gradient(135deg,#031a29 0%,#052a3d 52%,#08334a 100%); content: ''; }
 .hero__ambient { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; opacity: var(--copy-opacity); }
@@ -43,6 +43,9 @@
 .living-water-portal { position: relative; filter: drop-shadow(0 26px 44px rgb(0 12 22 / 30%)); }
 .living-water-portal__interaction { position: relative; touch-action: pan-y; }
 .living-water-portal__visual { display: block; overflow: visible; }
+.living-water-portal__frame { position: absolute; inset: -2% 0; width: 100%; height: 104%; object-fit: cover; object-position: center; pointer-events: none; mask-image: radial-gradient(ellipse 62% 62% at 52% 50%,#000 0 62%,rgb(0 0 0 / 90%) 72%,transparent 100%); will-change: opacity; }
+.living-water-portal__frame--dark { z-index: 2; opacity: var(--portal-dark-frame-opacity); }
+.living-water-portal__frame--light { z-index: 3; opacity: var(--portal-light-frame-opacity); }
 .living-water-portal__image,.living-water-portal__refraction image { transform: scale(var(--image-scale)); transform-origin: center; will-change: transform; }
 .living-water-portal__refraction { opacity: .13; mix-blend-mode: screen; }
 .living-water-portal__edge { vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; animation: portal-surface-tension 9s ease-in-out infinite alternate; }
@@ -55,7 +58,7 @@
 .living-water-portal__droplet--3 { right: 2%; bottom: 29%; width: 7px; }
 .living-water-portal__droplet--4 { bottom: 10%; left: 21%; width: 11px; }
 .living-water-portal__droplet--5 { top: 38%; left: 4%; width: 5px; }
-.portal-ripple-canvas,.portal-ripple-canvas__surface { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.portal-ripple-canvas,.portal-ripple-canvas__surface { position: absolute; z-index: 4; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .hero__immersion { position: absolute; z-index: 4; inset: 0; overflow: hidden; pointer-events: none; }
 .hero__immersion-photo { position: absolute; inset: 0; display: none; width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; }
 .water-surface { position: absolute; z-index: 2; top: var(--waterline-position); right: 0; bottom: 0; left: 0; opacity: var(--immersion-progress); will-change: top,opacity; }

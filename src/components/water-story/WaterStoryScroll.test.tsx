@@ -89,6 +89,8 @@ describe('WaterStoryScroll', () => {
       '--exit-progress': '0',
       '--waterline-percent': '60',
       '--image-scale': '1.015',
+      '--portal-dark-frame-opacity': '0',
+      '--portal-light-frame-opacity': '0.857142857142857',
     })
   })
 
