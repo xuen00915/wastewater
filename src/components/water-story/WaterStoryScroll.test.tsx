@@ -67,6 +67,20 @@ afterEach(() => {
 })
 
 describe('WaterStoryScroll', () => {
+  it('renders one non-interactive deep-dive layer with the approved decoration', () => {
+    mockMotionPreference()
+    mockGeometry()
+    mockAnimationFrame()
+
+    const { container } = render(<StoryFixture />)
+    const layer = container.querySelector('.east-deep-dive')
+
+    expect(layer).toHaveAttribute('aria-hidden', 'true')
+    expect(container.querySelectorAll('.east-deep-dive')).toHaveLength(1)
+    expect(layer?.querySelectorAll('.east-deep-dive__ray')).toHaveLength(3)
+    expect(layer?.querySelectorAll('.east-deep-dive__bubble')).toHaveLength(14)
+  })
+
   it('paints non-zero restored-scroll progress and stage variables on mount', () => {
     mockMotionPreference()
     mockGeometry()
@@ -89,6 +103,15 @@ describe('WaterStoryScroll', () => {
       '--cinematic-scale': '1.1400000000000001',
       '--next-content-opacity': '0',
     })
+    expect(container.querySelector('.east-deep-dive')).toHaveStyle({
+      '--east-dive-tint': '0.726',
+      '--east-dive-rays': '0.658',
+      '--east-dive-bubbles': '0.776',
+      '--east-dive-ray-shift': '-22px',
+    })
+    expect(container.querySelector('.east-deep-dive__bubble')).toHaveStyle(
+      'transform: translate3d(0, -54.6px, 0) scale(1.12)',
+    )
   })
 
   it('updates the cinematic zoom at the scheduled scroll position', () => {
@@ -123,6 +146,22 @@ describe('WaterStoryScroll', () => {
     fireEvent.resize(window)
     frames.flush(200)
     expect(container.querySelector('.water-story')).toHaveStyle('--water-progress: 0')
+  })
+
+  it('recalculates the deep-dive effect after orientation changes', () => {
+    mockMotionPreference()
+    mockGeometry()
+    const frames = mockAnimationFrame()
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 100 })
+
+    const { container } = render(<StoryFixture />)
+    frames.flush()
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 600 })
+
+    fireEvent(window, new Event('orientationchange'))
+    frames.flush(200)
+
+    expect(container.querySelector('.east-deep-dive')).toHaveStyle('--east-dive-ray-shift: -22px')
   })
 
   it('removes fully faded hero calls to action from pointer and keyboard interaction', () => {
@@ -189,6 +228,7 @@ describe('WaterStoryScroll', () => {
     expect(frames.cancel).toHaveBeenCalledTimes(1)
     expect(removeWindowListener).toHaveBeenCalledWith('scroll', expect.any(Function))
     expect(removeWindowListener).toHaveBeenCalledWith('resize', expect.any(Function))
+    expect(removeWindowListener).toHaveBeenCalledWith('orientationchange', expect.any(Function))
     expect(removeDocumentListener).toHaveBeenCalledWith('visibilitychange', expect.any(Function))
     expect(motion.remove).toHaveBeenCalledWith('change', expect.any(Function))
   })

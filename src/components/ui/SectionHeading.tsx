@@ -1,8 +1,8 @@
-import type { ElementType } from 'react'
+import type { ElementType, ReactNode } from 'react'
 
 type SectionHeadingProps = {
   id?: string
-  title: string
+  title: ReactNode
   description?: string
   level?: 2 | 3
   align?: 'left' | 'center'

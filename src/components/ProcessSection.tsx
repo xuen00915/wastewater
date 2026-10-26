@@ -26,8 +26,7 @@ export function ProcessSection() {
       <div className="process__layout container">
         <div className="process__narrative">
           <div className="process__intro">
-            <span className="process__eyebrow">Integrated water system</span>
-            <SectionHeading id="process-title" title="From Wastewater to Greener Buildings" description="One connected research pathway linking treatment, recovery and green infrastructure." />
+            <SectionHeading id="process-title" title="From Wastewater to Greener Buildings" description="One connected environmental pathway linking treatment, recovery, reuse and green infrastructure." />
           </div>
 
           <ol className="process__flow" aria-label="Circular water research pathway">

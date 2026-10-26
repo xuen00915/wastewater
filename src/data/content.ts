@@ -1,12 +1,15 @@
 import type { IconName } from '../components/ui/Icon'
 import type { PageId } from '../site'
+import type { ResearchChapterId } from './researchProgramme'
 
 export type NavItem = { label: string; page: PageId }
 export type ProcessStage = { number: string; title: string; description: string; icon: IconName }
-export type ResearchArea = { title: string; description: string; link: string; icon: IconName; image: string; alt: string }
+export type ResearchArea = { id: ResearchChapterId; title: string; description: string; link: string; icon: IconName; image: string; alt: string }
 export type Benefit = { number: string; title: string; description: string }
 export type Project = { title: string; description: string; type: string; status: string; image: string; alt: string }
 export type CollaborationType = { title: string; description: string; icon: IconName }
+export type CollaborationPartner = { mark: string; name: string }
+export type CollaborationPartnerGroup = { title: string; description: string; icon: IconName; direction: 'forward' | 'reverse'; partners: readonly CollaborationPartner[] }
 export type ServiceCapability = { number: string; title: string; description: string; icon: IconName }
 export type ResearchTheme = { number: string; title: string; description: string; icon: IconName }
 export type CareerArea = { title: string; description: string; icon: IconName }
@@ -25,87 +28,119 @@ export const navItems: readonly NavItem[] = [
 ]
 
 export const processStages: readonly ProcessStage[] = [
-  { number: '01', title: 'Wastewater', description: 'Understanding water characteristics and treatment requirements', icon: 'water' },
-  { number: '02', title: 'Treatment', description: 'Developing and evaluating liquid and solid treatment approaches', icon: 'treatment' },
-  { number: '03', title: 'Resource Recovery', description: 'Investigating useful resources within treated streams', icon: 'recovery' },
-  { number: '04', title: 'Green Wall', description: 'Connecting recovered water and resources with planted systems', icon: 'leaf' },
-  { number: '05', title: 'Greener Building', description: 'Exploring integration within sustainable built environments', icon: 'building' },
+  { number: '01', title: 'Wastewater', description: 'Understanding the water and resources entering the system.', icon: 'water' },
+  { number: '02', title: 'Treatment', description: 'Exploring biological, filtration and disinfection approaches.', icon: 'treatment' },
+  { number: '03', title: 'Water & Resource Recovery', description: 'Investigating opportunities to recover useful resources from treatment processes.', icon: 'recovery' },
+  { number: '04', title: 'Reuse', description: 'Exploring suitable applications for treated water and recovered materials.', icon: 'water' },
+  { number: '05', title: 'Green Infrastructure', description: 'Connecting recovered resources with living walls and planted systems.', icon: 'leaf' },
+  { number: '06', title: 'Greener Building', description: 'Exploring how circular water systems can support more sustainable built environments.', icon: 'building' },
 ]
 
 export const researchAreas: readonly ResearchArea[] = [
   {
+    id: 'liquid-treatment',
     title: 'Liquid Treatment',
-    description: 'Research into wastewater treatment processes, water quality and treatment performance.',
+    description: 'Exploring treatment approaches that improve water quality and prepare treated water for suitable reuse applications.',
     link: 'Explore Liquid Treatment',
     icon: 'water', image: imagePath('research-liquid-treatment.webp'),
     alt: 'Representative wastewater treatment and water-quality research',
   },
   {
-    title: 'Solid Treatment',
-    description: 'Research into solids management, treatment and opportunities for resource recovery.',
-    link: 'Explore Solid Treatment',
+    id: 'solid-treatment',
+    title: 'Solid Treatment & Resource Recovery',
+    description: 'Exploring ways to manage and recover value from solids generated during wastewater treatment.',
+    link: 'Explore Resource Recovery',
     icon: 'solids', image: imagePath('research-solid-treatment.webp'),
     alt: 'Representative solids and materials treatment research',
   },
   {
-    title: 'Green Wall',
-    description: 'Research into the integration of recovered resources with planted vertical systems and building environments.',
-    link: 'Explore Green Wall',
+    id: 'living-walls',
+    title: 'Living Walls & Green Infrastructure',
+    description: 'Investigating how treated water and recovered resources can support living walls and other forms of urban greenery.',
+    link: 'Explore Green Infrastructure',
     icon: 'leaf', image: imagePath('research-green-wall.webp'),
     alt: 'Representative green wall integrated into architecture',
   },
 ]
 
 export const benefits: readonly Benefit[] = [
-  { number: '01', title: 'Circular Resource Thinking', description: 'Explore ways to move from disposal-focused systems toward recovery and reuse.' },
-  { number: '02', title: 'Integrated Research', description: 'Connect water, solids and green infrastructure instead of treating them as isolated subjects.' },
-  { number: '03', title: 'Pilot Testing', description: 'Evaluate concepts through pilot-scale systems and real-world applications.' },
-  { number: '04', title: 'Monitoring & Learning', description: 'Use measurements and monitoring to understand system performance and support continued research.' },
+  { number: '01', title: 'Integrated Systems', description: 'Treat water, resource recovery and green infrastructure as connected components.' },
+  { number: '02', title: 'Pilot Testing', description: 'Evaluate concepts through controlled and pilot-scale applications.' },
+  { number: '03', title: 'Monitoring', description: 'Collect relevant environmental and treatment data to understand system behaviour.' },
+  { number: '04', title: 'Continuous Improvement', description: 'Use observations and measurements to refine future system design and operation.' },
 ]
 
 export const projects: readonly Project[] = [
-  { title: 'Pilot Treatment Project', description: 'A replaceable project entry for future pilot treatment research and testing.', type: 'Pilot Research', status: 'Research', image: imagePath('project-pilot-treatment.webp'), alt: 'Representative pilot treatment research system' },
-  { title: 'Resource Recovery Study', description: 'A replaceable project entry for future resource recovery research.', type: 'Research Study', status: 'Testing', image: imagePath('project-resource-recovery.webp'), alt: 'Representative resource recovery research materials' },
-  { title: 'Green-Wall Integration Pilot', description: 'A replaceable project entry for future green-wall integration research.', type: 'Pilot Research', status: 'Research', image: imagePath('project-green-wall.webp'), alt: 'Representative green-wall pilot installation' },
+  { title: 'Pilot Treatment Systems', description: 'Small-scale systems used to explore treatment processes, monitoring and operational performance.', type: 'Pilot Research', status: 'Research', image: imagePath('project-pilot-treatment.webp'), alt: 'Representative pilot treatment research system' },
+  { title: 'Resource Recovery Studies', description: 'Research into the treatment and potential reuse of solids and other recovered resources.', type: 'Resource Recovery', status: 'Testing', image: imagePath('project-resource-recovery.webp'), alt: 'Representative resource recovery research materials' },
+  { title: 'Green Infrastructure Pilots', description: 'Pilot applications exploring the integration of treated water, irrigation and living-wall systems.', type: 'Green Infrastructure', status: 'Research', image: imagePath('project-green-wall.webp'), alt: 'Representative green-wall pilot installation' },
 ]
 
 export const collaborationPathways: readonly CollaborationType[] = [
-  { title: 'Industry Partners', description: 'Explore practical applications and industry challenges', icon: 'industry' },
-  { title: 'Research Partners', description: 'Collaborate on research, testing and knowledge development', icon: 'flask' },
-  { title: 'Pilot Sites', description: 'Explore opportunities for real-world trials and monitoring', icon: 'site' },
+  { title: 'Industry Partners', description: 'Explore real-world environmental challenges, treatment needs and potential applications', icon: 'industry' },
+  { title: 'Research Partners', description: 'Collaborate on testing, monitoring, system development and knowledge exchange', icon: 'flask' },
 ]
 
-export const collaborationTypes = collaborationPathways
+export const collaborationPartnerGroups: readonly CollaborationPartnerGroup[] = [
+  {
+    title: 'Research Partners',
+    description: 'Testing, monitoring, system development and knowledge exchange',
+    icon: 'flask',
+    direction: 'forward',
+    partners: [
+      { mark: 'U', name: 'University' },
+      { mark: 'RI', name: 'Research Institute' },
+      { mark: 'EL', name: 'Environmental Lab' },
+      { mark: 'AS', name: 'Applied Science Team' },
+    ],
+  },
+  {
+    title: 'Industry & Commercial Partners',
+    description: 'Real-world environmental challenges, technology and potential applications',
+    icon: 'industry',
+    direction: 'reverse',
+    partners: [
+      { mark: 'WT', name: 'Water Technology Provider' },
+      { mark: 'EC', name: 'Engineering Consultancy' },
+      { mark: 'GI', name: 'Green Infrastructure Specialist' },
+      { mark: 'BE', name: 'Built-Environment Organisation' },
+    ],
+  },
+]
 
 export const services: readonly ServiceCapability[] = [
-  { number: '01', title: 'Liquid Treatment', description: 'Develop and evaluate approaches for wastewater treatment, water quality and treatment performance.', icon: 'water' },
-  { number: '02', title: 'Solid Treatment', description: 'Study solids management and treatment as part of the wider water system.', icon: 'solids' },
-  { number: '03', title: 'Pilot Testing', description: 'Translate research concepts into pilot-scale systems for structured evaluation.', icon: 'treatment' },
-  { number: '04', title: 'Monitoring', description: 'Use measurements and observation to understand system behavior and guide learning.', icon: 'flask' },
-  { number: '05', title: 'Resource Recovery', description: 'Explore useful resources within treated liquid and solid streams.', icon: 'recovery' },
-  { number: '06', title: 'Green Integration', description: 'Connect treated outputs with planted systems and greener building environments.', icon: 'leaf' },
+  { number: '01', title: 'Wastewater Assessment', description: 'Review water characteristics, treatment objectives and potential reuse opportunities to identify suitable treatment approaches.', icon: 'water' },
+  { number: '02', title: 'Liquid Treatment Development', description: 'Explore biological, filtration and disinfection approaches for wastewater treatment and reuse.', icon: 'treatment' },
+  { number: '03', title: 'Resource Recovery', description: 'Investigate opportunities to recover value from solids and other treatment by-products.', icon: 'recovery' },
+  { number: '04', title: 'Green-Wall Integration', description: 'Explore how treated water and recovered resources can be integrated with vertical greenery and sustainable building systems.', icon: 'leaf' },
+  { number: '05', title: 'Pilot Testing', description: 'Develop and evaluate pilot-scale systems before wider implementation.', icon: 'solids' },
+  { number: '06', title: 'Monitoring', description: 'Use environmental and water-quality monitoring to better understand system behaviour and performance.', icon: 'flask' },
 ]
 
 export const researchThemes: readonly ResearchTheme[] = [
-  { number: '01', title: 'Water Quality', description: 'Study water characteristics, treatment requirements and indicators of treatment performance.', icon: 'water' },
-  { number: '02', title: 'Treatment Processes', description: 'Develop and compare liquid and solids treatment approaches at research and pilot scale.', icon: 'treatment' },
-  { number: '03', title: 'Resource Pathways', description: 'Investigate how treated streams may connect with recovery and responsible reuse.', icon: 'recovery' },
-  { number: '04', title: 'Living Systems', description: 'Explore relationships between treated resources, planted systems and the built environment.', icon: 'leaf' },
-  { number: '05', title: 'Monitoring & Learning', description: 'Use measurement to understand performance, refine questions and support continued research.', icon: 'flask' },
+  { number: '01', title: 'Liquid Treatment', description: 'Explore wastewater treatment, filtration, disinfection and suitable reuse applications.', icon: 'water' },
+  { number: '02', title: 'Solid Treatment & Resource Recovery', description: 'Investigate the treatment and potential reuse of solids and other recovered resources.', icon: 'treatment' },
+  { number: '03', title: 'Water Reuse', description: 'Evaluate suitable applications for treated water within circular environmental systems.', icon: 'recovery' },
+  { number: '04', title: 'Living Walls & Green Infrastructure', description: 'Explore how treated water, irrigation and environmental monitoring can support vertical greenery.', icon: 'leaf' },
+  { number: '05', title: 'Connected Monitoring', description: 'Use water-quality and environmental data to understand system behaviour over time.', icon: 'flask' },
 ]
 
 export const careerAreas: readonly CareerArea[] = [
-  { title: 'Research', description: 'Investigating practical questions across water treatment, resource recovery and environmental systems.', icon: 'flask' },
-  { title: 'Pilot Systems', description: 'Supporting the design, operation and learning around pilot-scale treatment installations.', icon: 'treatment' },
-  { title: 'Monitoring', description: 'Collecting and interpreting measurements that help research teams understand system performance.', icon: 'water' },
-  { title: 'Green Infrastructure', description: 'Connecting planted systems, water research and sustainable building applications.', icon: 'leaf' },
+  { title: 'Environmental Engineering', description: 'Connecting treatment questions with practical environmental systems.', icon: 'recovery' },
+  { title: 'Water Treatment', description: 'Exploring biological, filtration and disinfection approaches.', icon: 'water' },
+  { title: 'Laboratory Research', description: 'Supporting careful testing, observation and research documentation.', icon: 'flask' },
+  { title: 'Pilot Testing', description: 'Evaluating concepts through controlled and pilot-scale applications.', icon: 'treatment' },
+  { title: 'Environmental Monitoring', description: 'Collecting data to understand water quality and environmental performance.', icon: 'water' },
+  { title: 'Sensors & Data Collection', description: 'Supporting remote observation and future environmental-system automation.', icon: 'flask' },
+  { title: 'Green Infrastructure', description: 'Connecting planted systems, water reuse and sustainable building applications.', icon: 'leaf' },
+  { title: 'Research Support', description: 'Helping multidisciplinary teams investigate connected environmental questions.', icon: 'industry' },
 ]
 
 export const aboutPrinciples: readonly AboutPrinciple[] = [
-  { number: '01', title: 'Research Led', description: 'Start with clear questions, relevant evidence and methods suited to the treatment context.', icon: 'flask' },
-  { number: '02', title: 'System Connected', description: 'Consider liquid treatment, solids, resource recovery and living systems as related parts of one pathway.', icon: 'recovery' },
-  { number: '03', title: 'Pilot Informed', description: 'Use pilot-scale testing and observation to explore how research concepts behave in practical settings.', icon: 'treatment' },
-  { number: '04', title: 'Open to Collaboration', description: 'Work with research, industry and pilot-site partners around shared environmental questions.', icon: 'industry' },
+  { number: '01', title: 'Integrated Systems', description: 'Treat water, resource recovery and green infrastructure as connected components.', icon: 'recovery' },
+  { number: '02', title: 'Pilot Testing', description: 'Evaluate concepts through controlled and pilot-scale applications.', icon: 'treatment' },
+  { number: '03', title: 'Monitoring', description: 'Collect relevant environmental and treatment data to understand system behaviour.', icon: 'flask' },
+  { number: '04', title: 'Continuous Improvement', description: 'Use observations and measurements to refine future system design and operation.', icon: 'industry' },
 ]
 
 export const treatmentStages: readonly TreatmentStage[] = [

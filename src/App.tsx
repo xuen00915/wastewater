@@ -11,6 +11,7 @@ import { resolvePageId, type PageId } from './site'
 import './components/interactive-sections.css'
 import './components/content-sections.css'
 import './components/page-sections.css'
+import './components/research-scroll-story.css'
 
 const pageComponents: Record<PageId, ComponentType> = {
   home: HomePage,

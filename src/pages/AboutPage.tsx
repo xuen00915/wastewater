@@ -12,7 +12,7 @@ export function AboutPage() {
     <div className="internal-page about-page">
       <InternalPageHero
         title="Research for Circular Water Systems"
-        description="We explore how wastewater treatment, resource recovery and green infrastructure can work as one connected environmental system for more sustainable built environments."
+        description="We connect wastewater treatment, resource recovery, water reuse and green infrastructure as parts of one circular environmental system."
         image={image}
         alt="Representative green-wall system integrated with architecture"
       />
@@ -23,7 +23,7 @@ export function AboutPage() {
             <SectionHeading
               id="about-purpose-title"
               title="Treatment Is the Beginning of a Larger Story"
-              description="Our focus is the pathway beyond conventional end-of-pipe thinking: understanding wastewater, evaluating treatment, exploring recovery and connecting treated resources with living infrastructure."
+              description="Our focus is the pathway beyond conventional end-of-pipe thinking: understanding wastewater, evaluating treatment, exploring recovery and reuse, and connecting treated resources with living infrastructure."
             />
           </Reveal>
           <Reveal className="about-story__pathway" delay={100}>
@@ -33,7 +33,11 @@ export function AboutPage() {
             <span aria-hidden="true" />
             <p>Resource Recovery</p>
             <span aria-hidden="true" />
+            <p>Reuse</p>
+            <span aria-hidden="true" />
             <p>Green Infrastructure</p>
+            <span aria-hidden="true" />
+            <p>Greener Building</p>
           </Reveal>
         </div>
       </section>

@@ -11,12 +11,13 @@ describe('ProcessSection', () => {
     expect(screen.getByRole('list', { name: /circular water research pathway/i })).toBeInTheDocument()
   })
 
-  it('keeps all five stages visible and keyboard focusable without IntersectionObserver', () => {
+  it('keeps all six stages visible and keyboard focusable without IntersectionObserver', () => {
     const original = window.IntersectionObserver
     // @ts-expect-error testing browser fallback
     delete window.IntersectionObserver
     render(<ProcessSection />)
-    expect(screen.getAllByRole('listitem')).toHaveLength(5)
+    expect(screen.queryByText('Integrated water system')).not.toBeInTheDocument()
+    expect(screen.getAllByRole('listitem')).toHaveLength(6)
     for (const stage of screen.getAllByRole('listitem')) expect(stage).toHaveAttribute('tabindex', '0')
     window.IntersectionObserver = original
   })

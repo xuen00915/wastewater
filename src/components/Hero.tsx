@@ -26,7 +26,7 @@ export function Hero() {
             <span>Into Resources for </span>
             <em>Greener Buildings</em>
           </h1>
-          <p className="hero__description">Advancing wastewater treatment, resource recovery and green-wall research as one connected circular system for more sustainable built environments.</p>
+          <p className="hero__description">We explore how wastewater treatment, resource recovery and green infrastructure can work together as one connected circular system.</p>
           <div className="hero__actions">
             <ButtonLink href={pageHref('research')}>Explore Our Research</ButtonLink>
             <ButtonLink href={pageHref('projects')} variant="secondary">View Projects</ButtonLink>

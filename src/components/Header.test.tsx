@@ -12,17 +12,23 @@ describe('Header', () => {
     expect(screen.getByRole('banner')).not.toHaveClass('site-header--home')
   })
 
-  it('renders six real page links and identifies the current page', () => {
+  it('uses the wordmark as the home link and omits Home from both navigation menus', () => {
     render(<Header currentPage="research" />)
+    const wordmark = screen.getByRole('link', { name: 'E & ST Environmental home' })
+    expect(wordmark).toHaveAttribute('href', '/')
+    expect(wordmark.querySelector('[aria-hidden="true"]')).not.toBeInTheDocument()
+
     const desktopNavigation = screen.getByRole('navigation', { name: 'Primary navigation' })
-    const links = within(desktopNavigation).getAllByRole('link')
-    expect(links).toHaveLength(6)
-    expect(links.map((link) => link.getAttribute('href'))).toEqual([
-      '/', '/services/', '/research/', '/projects/', '/collaborate/', '/career/',
+    const desktopLinks = within(desktopNavigation).getAllByRole('link')
+    expect(desktopLinks).toHaveLength(5)
+    expect(desktopLinks.map((link) => link.getAttribute('href'))).toEqual([
+      '/services/', '/research/', '/projects/', '/collaborate/', '/career/',
     ])
-    expect(links.every((link) => !link.getAttribute('href')?.startsWith('#'))).toBe(true)
+    expect(desktopLinks.every((link) => !link.getAttribute('href')?.startsWith('#'))).toBe(true)
     expect(within(desktopNavigation).getByRole('link', { name: 'Research' })).toHaveAttribute('aria-current', 'page')
-    expect(within(desktopNavigation).getByRole('link', { name: 'Home' })).not.toHaveAttribute('aria-current')
+
+    const mobileNavigation = document.getElementById('mobile-navigation')!
+    expect(mobileNavigation.querySelector('a[href="/"]')).not.toBeInTheDocument()
   })
 
   it('opens and closes the mobile navigation accessibly', async () => {

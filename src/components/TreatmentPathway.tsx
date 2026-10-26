@@ -1,109 +1,68 @@
-import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
-import { treatmentStages } from '../data/content'
-import { Icon } from './ui/Icon'
+import { useEffect, useRef, useState, type KeyboardEvent, type MouseEvent } from 'react'
 import { Reveal } from './ui/Reveal'
 import './treatment-pathway.css'
 
+const diagramAlt = 'Integrated in-situ wastewater treatment and reuse system connecting filtration, disinfection, resource recovery and living walls'
+
 export function TreatmentPathway() {
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
-  const selectedStage = treatmentStages[selectedIndex]
-
-  const selectStage = (index: number, moveFocus = false) => {
-    const nextIndex = (index + treatmentStages.length) % treatmentStages.length
-    setSelectedIndex(nextIndex)
-    if (moveFocus) tabRefs.current[nextIndex]?.focus()
-  }
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    let nextIndex: number | undefined
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = selectedIndex + 1
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = selectedIndex - 1
-    if (event.key === 'Home') nextIndex = 0
-    if (event.key === 'End') nextIndex = treatmentStages.length - 1
-    if (nextIndex === undefined) return
-    event.preventDefault()
-    selectStage(nextIndex, true)
-  }
+  const [isExpanded, setIsExpanded] = useState(false)
+  const triggerRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    if (!('IntersectionObserver' in window)) return
+    if (!isExpanded) return
 
-    const compactLayout = typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 900px)').matches
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
 
-    const observer = new IntersectionObserver((entries) => {
-      const activeEntry = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-      if (!activeEntry) return
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [isExpanded])
 
-      const index = Number((activeEntry.target as HTMLElement).dataset.stageIndex)
-      if (Number.isInteger(index)) setSelectedIndex(index)
-    }, {
-      rootMargin: compactLayout ? '-60% 0px -30% 0px' : '-34% 0px -46% 0px',
-      threshold: [0, 0.25, 0.5, 0.75, 1],
-    })
+  const closeDiagram = () => {
+    setIsExpanded(false)
+    window.setTimeout(() => triggerRef.current?.focus(), 0)
+  }
 
-    tabRefs.current.forEach((stage) => {
-      if (stage) observer.observe(stage)
-    })
+  const handleDialogKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') closeDiagram()
+  }
 
-    return () => observer.disconnect()
-  }, [])
+  const handleBackdropClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) closeDiagram()
+  }
 
-  const progress = (selectedIndex + 1) / treatmentStages.length
-  const stageTotal = String(treatmentStages.length).padStart(2, '0')
-  const islandStyle = {
-    '--treatment-progress': progress,
-    '--active-x': `${selectedStage.hotspot.x}%`,
-    '--active-y': `${selectedStage.hotspot.y}%`,
-    '--focus-shift-x': `${(50 - selectedStage.hotspot.x) * 0.24}%`,
-    '--focus-shift-y': `${(50 - selectedStage.hotspot.y) * 0.24}%`,
-  } as CSSProperties
+  const imageSrc = `${import.meta.env.BASE_URL}images/integrated-treatment-reuse-diagram.webp`
 
   return (
     <section className="treatment-pathway section" aria-labelledby="treatment-pathway-title">
-      <div className="container">
+      <div className="container treatment-pathway__container">
         <Reveal className="treatment-pathway__intro">
           <h2 id="treatment-pathway-title">How Wastewater Treatment Works</h2>
-          <p>This interactive explainer presents a generic research pathway. Individual treatment systems depend on their water, research question and application context.</p>
+          <p>Explore an illustrative research and development framework connecting treatment, recovery, reuse and living walls. Scroll the preview or open the full diagram to inspect the pathway in detail.</p>
         </Reveal>
-        <div className="treatment-pathway__layout">
-          <div className="treatment-pathway__visual">
-            <div className="treatment-island" style={islandStyle}>
-              <div className="treatment-island__viewport">
-                <div className="treatment-island__scene">
-                  <img src={`${import.meta.env.BASE_URL}images/treatment-island.webp`} alt="Isometric wastewater treatment island showing connected treatment, recovery and green-wall zones" loading="lazy" />
-                  {treatmentStages.map((stage, index) => {
-                    const markerStyle = { '--stage-x': `${stage.hotspot.x}%`, '--stage-y': `${stage.hotspot.y}%` } as CSSProperties
-                    return <span key={stage.id} className={index === selectedIndex ? 'treatment-island__marker treatment-island__marker--active' : 'treatment-island__marker'} style={markerStyle} aria-hidden="true"><span>{stage.number}</span></span>
-                  })}
-                  <span className="treatment-island__wash" aria-hidden="true" />
-                </div>
-              </div>
-              <div className="treatment-island__status" aria-hidden="true">
-                <span>Current focus</span>
-                <strong>{selectedStage.number} / {stageTotal}&nbsp;&nbsp;{selectedStage.title}</strong>
-              </div>
+
+        <Reveal className="treatment-diagram">
+          <div className="treatment-diagram__trigger">
+            <div className="treatment-diagram__scroll" role="region" aria-label="Scrollable treatment diagram preview" tabIndex={0}>
+              <img src={imageSrc} alt={diagramAlt} loading="lazy" />
             </div>
+            <button ref={triggerRef} className="treatment-diagram__action" type="button" aria-label="Enlarge treatment diagram" aria-haspopup="dialog" onClick={() => setIsExpanded(true)}>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4M11 8v6M8 11h6" /></svg>
+              View full diagram
+            </button>
           </div>
-          <div className="treatment-pathway__stages" role="tablist" aria-label="Wastewater treatment research stages">
-            {treatmentStages.map((stage, index) => {
-              const selected = index === selectedIndex
-              return <article key={stage.id} className={selected ? 'treatment-stage-shell treatment-stage-shell--active' : 'treatment-stage-shell'}>
-                <button ref={(node) => { tabRefs.current[index] = node }} id={`treatment-tab-${stage.id}`} className="treatment-stage" type="button" role="tab" data-stage-index={index} aria-label={`${stage.number} ${stage.title}`} aria-selected={selected} aria-controls={`treatment-panel-${stage.id}`} tabIndex={selected ? 0 : -1} onClick={() => selectStage(index)} onKeyDown={handleKeyDown}>
-                  <span className="treatment-stage__node"><span>{stage.number}</span></span>
-                  <span className="treatment-stage__label"><Icon name={stage.icon} size={21} /><span><strong>{stage.title}</strong><small>{stage.summary}</small></span></span>
-                </button>
-                <div id={`treatment-panel-${stage.id}`} className="treatment-pathway__panel" role={selected ? 'tabpanel' : undefined} aria-live={selected ? 'polite' : undefined} aria-labelledby={`treatment-tab-${stage.id}`} hidden={!selected}>
-                  <h3>{stage.title}</h3>
-                  <p>{stage.detail}</p>
-                </div>
-              </article>
-            })}
-          </div>
-        </div>
+        </Reveal>
       </div>
+
+      {isExpanded && <div className="treatment-lightbox" role="dialog" aria-modal="true" aria-label="Integrated treatment and reuse diagram" onKeyDown={handleDialogKeyDown} onMouseDown={handleBackdropClick}>
+        <button className="treatment-lightbox__close" type="button" aria-label="Close enlarged diagram" autoFocus onClick={closeDiagram}>
+          <span aria-hidden="true">×</span>
+        </button>
+        <div className="treatment-lightbox__canvas">
+          <img src={imageSrc} alt={diagramAlt} />
+        </div>
+      </div>}
     </section>
   )
 }

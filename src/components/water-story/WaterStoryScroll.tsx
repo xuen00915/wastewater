@@ -1,4 +1,6 @@
 import { useEffect, useRef, type PropsWithChildren, type ReactElement } from 'react'
+import { DeepDiveOverlay } from './DeepDiveOverlay'
+import { deriveDeepDiveValues } from './deepDiveMath'
 import { deriveWaterStoryValues } from './waterStoryMath'
 
 const MOTION_QUERY = '(prefers-reduced-motion: reduce)'
@@ -22,6 +24,7 @@ function getProgress(element: HTMLElement) {
 
 export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement {
   const storyRef = useRef<HTMLElement>(null)
+  const deepDiveRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const story = storyRef.current
@@ -60,6 +63,18 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
       story.style.setProperty('--cinematic-scene-opacity', String(1 - transitionProgress * 0.76))
       story.style.setProperty('--next-content-opacity', String(nextContentOpacity))
 
+      const deepDiveValues = deriveDeepDiveValues(values.progress)
+      const deepDive = deepDiveRef.current
+      if (deepDive) {
+        deepDive.style.setProperty('--east-dive-tint', String(deepDiveValues.tint))
+        deepDive.style.setProperty('--east-dive-rays', String(deepDiveValues.rays))
+        deepDive.style.setProperty('--east-dive-bubbles', String(deepDiveValues.bubbles))
+        deepDive.style.setProperty('--east-dive-ray-shift', `${deepDiveValues.rayShift}px`)
+        deepDive.querySelectorAll<HTMLElement>('.east-deep-dive__bubble').forEach((bubble, index) => {
+          bubble.style.transform = `translate3d(0, ${deepDiveValues.bubbleY[index]}px, 0) scale(${deepDiveValues.bubbleScale})`
+        })
+      }
+
       if (heroCopy) {
         const copyIsInteractive = reducedMotion || values.copyOpacity >= 0.15
         if (!copyIsInteractive && heroCopy.contains(document.activeElement)) {
@@ -80,6 +95,7 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
       if (scrollListenersAttached || reducedMotion) return
       window.addEventListener('scroll', schedulePaint, { passive: true })
       window.addEventListener('resize', schedulePaint, { passive: true })
+      window.addEventListener('orientationchange', schedulePaint, { passive: true })
       scrollListenersAttached = true
     }
 
@@ -87,6 +103,7 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
       if (!scrollListenersAttached) return
       window.removeEventListener('scroll', schedulePaint)
       window.removeEventListener('resize', schedulePaint)
+      window.removeEventListener('orientationchange', schedulePaint)
       scrollListenersAttached = false
     }
 
@@ -147,7 +164,10 @@ export function WaterStoryScroll({ children }: PropsWithChildren): ReactElement 
 
   return (
     <section ref={storyRef} className="water-story" data-active="true">
-      <div className="water-story__sticky">{children}</div>
+      <div className="water-story__sticky">
+        <DeepDiveOverlay ref={deepDiveRef} />
+        {children}
+      </div>
     </section>
   )
 }

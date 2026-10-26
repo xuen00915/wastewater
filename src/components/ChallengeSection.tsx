@@ -20,17 +20,17 @@ export function ChallengeSection({ overlay = false }: ChallengeSectionProps) {
             <h2 id="challenge-title">Water Shouldn’t End After Treatment</h2>
           </div>
           <div className="challenge__body">
-            <p>Conventional wastewater treatment is often viewed as an end-of-pipe process. Our research explores how treated water, recovered resources and green infrastructure can become part of a broader circular system.</p>
-            <p>By connecting treatment technologies with resource recovery and green-wall applications, the aim is to create practical solutions that support more sustainable buildings and environments.</p>
-            <div className="challenge__statements">
-              {statements.map((item) => (
-                <article key={item.title}>
-                  <Icon name={item.icon} size={30} />
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </article>
-              ))}
-            </div>
+            <p>Wastewater treatment is often seen as the end of a process. We are interested in what can happen next — how treated water and recovered resources can support greenery, environmental performance and more circular built environments.</p>
+            <p>By connecting treatment, reuse, resource recovery and green infrastructure, the aim is to explore practical systems that make better use of water and material resources.</p>
+          </div>
+          <div className="challenge__statements">
+            {statements.map((item) => (
+              <article key={item.title}>
+                <Icon name={item.icon} size={30} />
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
           </div>
         </Reveal>
       </div>

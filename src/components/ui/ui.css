@@ -27,13 +27,15 @@ button:focus-visible,
   outline-offset: 4px;
 }
 
-.section-heading { max-width: 760px; }
+.section-heading { max-width: 1050px; }
 .section-heading--center { margin-inline: auto; text-align: center; }
 .section-heading h2,
-.section-heading h3 { margin: 0; color: var(--navy-deep); font-size: clamp(2rem, 4.2vw, 3.5rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.04em; }
+.section-heading h3 { margin: 0; color: var(--navy-deep); font-size: clamp(2rem, 4.2vw, 3.5rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.04em; text-wrap: balance; }
+.section-heading h2 > span,
+.section-heading h3 > span { display: block; }
 .section-heading--strong h2,
 .section-heading--strong h3 { font-weight: 760; }
-.section-heading__description { max-width: 650px; margin: 22px auto 0; color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.125rem); line-height: 1.75; }
+.section-heading__description { max-width: 900px; margin: 22px auto 0; color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.125rem); line-height: 1.75; text-wrap: pretty; }
 .section-heading--left .section-heading__description { margin-inline: 0; }
 .section-heading--inverted h2,
 .section-heading--inverted h3 { color: var(--white); }
